@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import by.etc.samodumkina.bean.User;
 import by.etc.samodumkina.dao.UserDAO;
 import by.etc.samodumkina.dao.exception.DAOException;
+import by.etc.samodumkina.dao.pool.ConnectionPool;
+import by.etc.samodumkina.dao.pool.exception.ConnectionPoolException;
 
 public class SQLUserDAO implements UserDAO{
 	private final static String SIGN_IN = "select * from users where login = ? and password = ?";
@@ -20,7 +22,7 @@ public class SQLUserDAO implements UserDAO{
 		
 		boolean answer = false;
 		try {
-			Connection connection = DBAccess.getInstance().getConnection();
+			Connection connection = ConnectionPool.getInstance().takeConnection();
 			
 			PreparedStatement statement = connection.prepareStatement(SIGN_IN);
 			statement.setString(1, user.getLogin());
@@ -33,6 +35,8 @@ public class SQLUserDAO implements UserDAO{
 			}
 		} catch (SQLException e) {
 			throw new DAOException(e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException("Can't create connection", e);
 		}
 		
 		return answer;
@@ -41,7 +45,7 @@ public class SQLUserDAO implements UserDAO{
 	@Override
 	public void registration(User user) throws DAOException{
 		try {
-			Connection connection = DBAccess.getInstance().getConnection();
+			Connection connection = ConnectionPool.getInstance().takeConnection();
 			PreparedStatement statement = connection.prepareStatement(REGISTRATION);
 			statement.setString(1, user.getLogin());
 			statement.setString(2, user.getPassword());
@@ -50,8 +54,9 @@ public class SQLUserDAO implements UserDAO{
 			statement.execute();
 			
 		} catch (SQLException e) {
-			
-			e.printStackTrace();
+			throw new DAOException(e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException("Can't create connection", e);
 		}
 		
 	}
