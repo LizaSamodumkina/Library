@@ -12,22 +12,19 @@ import by.etc.samodumkina.service.Command;
 import by.etc.samodumkina.service.exception.ServiceException;
 import by.etc.samodumkina.service.factory.ServiceFactory;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Controller extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 214591732476537869L;
+	
+	private final static Logger log = LogManager.getLogger(Controller.class);
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*response.setContentType("text/html");
-		
-		String login = request.getParameter("login");
-		String password = request.getParameter("password");
-		
-		PrintWriter out = response.getWriter();
-		out.append("your login: " + login);
-		out.append("<br/> your password: " + password);*/
 		
 		String commandName = request.getParameter(RequestParameterName.COMMAND_NAME);
 		Command command = ServiceFactory.getInstance().getCommand(commandName);
@@ -36,11 +33,9 @@ public class Controller extends HttpServlet {
 		try {
 			page = command.execute(request);
 		} catch (ServiceException e) {
+			log.error(e.getMessage());
 			page = JSPPageName.ERROR_PAGE;
 		}
-		
-		//request.setAttribute("login", request.getParameter("login"));
-		//request.setAttribute("password", request.getParameter("password"));
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
 		if (dispatcher != null) {

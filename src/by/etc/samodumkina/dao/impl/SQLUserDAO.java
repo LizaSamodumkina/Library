@@ -21,8 +21,7 @@ public class SQLUserDAO implements UserDAO{
 	public boolean signIn(User user) throws DAOException{
 		
 		boolean answer = false;
-		try {
-			Connection connection = ConnectionPool.getInstance().takeConnection();
+		try (Connection connection = ConnectionPool.getInstance().takeConnection()){
 			
 			PreparedStatement statement = connection.prepareStatement(SIGN_IN);
 			statement.setString(1, user.getLogin());
@@ -44,8 +43,8 @@ public class SQLUserDAO implements UserDAO{
 
 	@Override
 	public void registration(User user) throws DAOException{
-		try {
-			Connection connection = ConnectionPool.getInstance().takeConnection();
+		try (Connection connection = ConnectionPool.getInstance().takeConnection()){
+			
 			PreparedStatement statement = connection.prepareStatement(REGISTRATION);
 			statement.setString(1, user.getLogin());
 			statement.setString(2, user.getPassword());
