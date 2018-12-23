@@ -17,23 +17,19 @@ import org.apache.logging.log4j.Logger;
 
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 214591732476537869L;
+	private final static int FIRST = 0;
 	
 	private final static Logger log = LogManager.getLogger(Controller.class);
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String commandName = request.getParameter(RequestParameterName.COMMAND_NAME);
 		Command command = ServiceFactory.getInstance().getCommand(commandName);
 		
 		String page = null;
 		try {
-			page = command.execute(request);
+			page = (String)(command.execute(request)).get(FIRST);
 		} catch (ServiceException e) {
-			log.error(e.getMessage());
+			log.error(e.getStackTrace());
 			page = JSPPageName.ERROR_PAGE;
 		}
 		
@@ -43,6 +39,24 @@ public class Controller extends HttpServlet {
 		}else {
 			errorMessageDirectluFromResponse(response);
 		}
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("post");
+		
+		String commandName = request.getParameter(RequestParameterName.COMMAND_NAME);
+		Command command = ServiceFactory.getInstance().getCommand(commandName);
+		
+		String page = null;
+		try {
+			System.out.println(command);
+			page = (String)(command.execute(request)).get(FIRST);
+		} catch (ServiceException e) {
+			log.error(e.getStackTrace());
+			page = JSPPageName.ERROR_PAGE;
+		}
+		
+		response.sendRedirect(request.getContextPath() + page);
 	}
 	
 	private void errorMessageDirectluFromResponse(HttpServletResponse response) throws IOException {
