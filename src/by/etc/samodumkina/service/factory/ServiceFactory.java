@@ -5,8 +5,11 @@ import java.util.Map;
 
 import by.etc.samodumkina.service.Command;
 import by.etc.samodumkina.service.CommandName;
+import by.etc.samodumkina.service.impl.ChangeToENLocale;
+import by.etc.samodumkina.service.impl.ChangeToRULocale;
 import by.etc.samodumkina.service.impl.RegistrationCommand;
 import by.etc.samodumkina.service.impl.SignInCommand;
+import by.etc.samodumkina.service.impl.TakeAllBookCommand;
 
 public class ServiceFactory {
 	private final static ServiceFactory instance = new ServiceFactory();
@@ -16,6 +19,9 @@ public class ServiceFactory {
 	private ServiceFactory() {
 		commands.put(CommandName.SIGN_IN, new SignInCommand());
 		commands.put(CommandName.REGISTRATION, new RegistrationCommand());
+		commands.put(CommandName.TAKE_ALL_BOOKS, new TakeAllBookCommand());
+		commands.put(CommandName.EN, new ChangeToENLocale());
+		commands.put(CommandName.RU, new ChangeToRULocale());
 	}
 	
 	public static ServiceFactory getInstance() {
