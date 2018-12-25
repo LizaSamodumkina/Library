@@ -14,11 +14,11 @@
 	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> 
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-	<form action = 'Controller' method = "get">
+	<form action = 'Controller' method = "get" id = "entry_form">
 		<input type = 'hidden' name = 'command' value = 'SIGN_IN'>
 		
 		<div class="form-group">
@@ -45,10 +45,10 @@
 		</div>
 		
 		<br/>
-		<input type = 'submit' name = "signIn" value="${logIn}" class="btn btn-primary">
+		<input type = 'button' name = "signIn" id = "entry_button" value="${logIn}" class="btn btn-primary">
 	</form>
 	
-	<form action = "Controller" method = "get">
+	<form action = "Controller" method = "get" id = "registration_form">
 		<input type = 'hidden' name = 'command' value = 'REGISTRATION'>
 		
 		<label for="login">
@@ -73,7 +73,7 @@
 		
 		<br/>
 		<fmt:message bundle="${loc}" key="local.sign_up_button" var="SignUp" />
-		<input type = 'submit' name = "registration" value = "${SignUp}" class="btn btn-primary">
+		<input type = 'button' name = "registration" id = "registration" value = "${SignUp}" class="btn btn-primary">
 	</form>
 	
 	<form action = "Controller" method = "post">
@@ -100,5 +100,7 @@
 		 	</a>
 		 </li>
 	 </ul>
+	<script type="text/javascript" src="js/md5-min.js"></script>
+	<script src = "js/index.js"></script>
 </body>
 </html>

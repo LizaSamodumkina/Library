@@ -22,16 +22,9 @@ public class Controller extends HttpServlet {
 	private final static Logger log = LogManager.getLogger(Controller.class);
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String commandName = request.getParameter(RequestParameterName.COMMAND_NAME);
-		Command command = ServiceFactory.getInstance().getCommand(commandName);
-		
-		String page = null;
-		try {
-			page = (String)(command.execute(request)).get(FIRST);
-		} catch (ServiceException e) {
-			log.error(e.getStackTrace());
-			page = JSPPageName.ERROR_PAGE;
-		}
+		System.out.println("get");
+
+		String page = mainLogic(request, response);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
 		if (dispatcher != null) {
@@ -44,19 +37,24 @@ public class Controller extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("post");
 		
+		String page = mainLogic(request, response);
+		
+		response.sendRedirect(request.getContextPath() + page);
+	}
+	
+	private String mainLogic(HttpServletRequest request, HttpServletResponse response) {
 		String commandName = request.getParameter(RequestParameterName.COMMAND_NAME);
 		Command command = ServiceFactory.getInstance().getCommand(commandName);
 		
 		String page = null;
 		try {
-			System.out.println(command);
 			page = (String)(command.execute(request)).get(FIRST);
 		} catch (ServiceException e) {
 			log.error(e.getStackTrace());
 			page = JSPPageName.ERROR_PAGE;
 		}
 		
-		response.sendRedirect(request.getContextPath() + page);
+		return page;
 	}
 	
 	private void errorMessageDirectluFromResponse(HttpServletResponse response) throws IOException {

@@ -1,5 +1,8 @@
 package by.etc.samodumkina.service.impl;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import by.etc.samodumkina.bean.User;
@@ -11,27 +14,32 @@ import by.etc.samodumkina.dao.factory.DAOFactory;
 import by.etc.samodumkina.service.Command;
 import by.etc.samodumkina.service.exception.ServiceException;
 
-public class SignInCommand implements Command{
+public class SignInCommand implements Command<String>{
+	private final static String USER_NAME = "user";
 
 	@Override
-	public String execute(HttpServletRequest request) throws ServiceException {
-		String answer;
+	public List<String> execute(HttpServletRequest request) throws ServiceException {
+		List<String> answer = new LinkedList<String>();
 		
 		String login = request.getParameter(RequestParameterName.LOGIN);
 		String password =  request.getParameter(RequestParameterName.PASSWORD);
+		
+		//валидаци данных
 		
 		User user = new User(login, password);
 		
 		try {
 			DAOFactory factory = DAOFactory.getInstance();
 			
-			UserDAO userDao = factory.getUserDAO();
+			UserDAO userDao = factory.takeUserDAO();
 			boolean result = userDao.signIn(user);
 			
 			if (result) {
-				answer = JSPPageName.CATALOG_PAGE;
+				answer.add(JSPPageName.CATALOG_PAGE);
+				request.getSession().setAttribute(USER_NAME, login);
+				//проверить администратор ли в системе
 			} else {
-				answer = JSPPageName.REGISTRATION_PAGE;
+				answer.add(JSPPageName.REGISTRATION_PAGE);
 			}
 			
 		}catch (DAOException e) {

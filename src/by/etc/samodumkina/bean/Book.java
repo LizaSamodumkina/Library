@@ -1,6 +1,7 @@
 package by.etc.samodumkina.bean;
 
 public class Book {
+	private int id;
 	private String name;
 	private String authors;
 	private String annotation;
@@ -9,19 +10,29 @@ public class Book {
 	
 	public Book() {}
 
-	public Book(String name, String authors, String annotation, String description) {
+	public Book(int id, String name, String authors, String annotation, String description) {
+		this.id = id;
 		this.name = name;
 		this.authors = authors;
 		this.annotation = annotation;
 		this.description = description;
 	}
 
-	public Book(String name, String authors, String annotation, String description, int colInLabrary) {
+	public Book(int id, String name, String authors, String annotation, String description, int colInLabrary) {
+		this.id = id;
 		this.name = name;
 		this.authors = authors;
 		this.annotation = annotation;
 		this.description = description;
 		this.colInLabrary = colInLabrary;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -72,6 +83,7 @@ public class Book {
 		result = prime * result + ((authors == null) ? 0 : authors.hashCode());
 		result = prime * result + colInLabrary;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -102,6 +114,8 @@ public class Book {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
+		if (id != other.id)
+			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -113,7 +127,9 @@ public class Book {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Book [name=");
+		builder.append("Book [id=");
+		builder.append(id);
+		builder.append(", name=");
 		builder.append(name);
 		builder.append(", authors=");
 		builder.append(authors);

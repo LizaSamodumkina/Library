@@ -6,4 +6,5 @@ public class RequestParameterName {
 	public final static String LOGIN = "login";
 	public final static String PASSWORD = "password";
 	public final static String EMAIL = "e-mail";
+	public final static String BOOK_ID = "bookId";
 }

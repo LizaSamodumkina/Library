@@ -1,5 +1,8 @@
 package by.etc.samodumkina.service.impl;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import by.etc.samodumkina.bean.User;
@@ -11,13 +14,13 @@ import by.etc.samodumkina.dao.factory.DAOFactory;
 import by.etc.samodumkina.service.Command;
 import by.etc.samodumkina.service.exception.ServiceException;
 
-public class RegistrationCommand implements Command{
+public class RegistrationCommand implements Command<String>{
 
 	public RegistrationCommand() {}
 
 	@Override
-	public String execute(HttpServletRequest request) throws ServiceException {
-		String answer;
+	public List<String> execute(HttpServletRequest request) throws ServiceException {
+		List<String> answer = new LinkedList<>();
 		
 		String login = request.getParameter(RequestParameterName.LOGIN);
 		String password =  request.getParameter(RequestParameterName.PASSWORD);
@@ -28,11 +31,11 @@ public class RegistrationCommand implements Command{
 		try {
 			DAOFactory factory = DAOFactory.getInstance();
 			
-			UserDAO userDao = factory.getUserDAO();
+			UserDAO userDao = factory.takeUserDAO();
 			
 			userDao.registration(user);
 			
-			answer = JSPPageName.CATALOG_PAGE;
+			answer.add(JSPPageName.CATALOG_PAGE);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}

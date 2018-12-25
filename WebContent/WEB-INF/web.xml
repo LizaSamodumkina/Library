@@ -9,6 +9,10 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <context-param>
+    <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+    <param-value>localization.locale</param-value>
+  </context-param>
   <servlet>
     <description></description>
     <display-name>Controller</display-name>
@@ -20,16 +24,36 @@
     <url-pattern>/Controller</url-pattern>
   </servlet-mapping>
   <filter>
-  	<display-name>CharsetFilter</display-name>
-  	<filter-name>CharsetFilter</filter-name>
-  	<filter-class>by.etc.samodumkina.controller.filter.CharsetFilter</filter-class>
-  	<init-param>
-  		<param-name>characterEncoding</param-name>
-  		<param-value>utf-8</param-value>
-  	</init-param>
+    <display-name>CharsetFilter</display-name>
+    <filter-name>CharsetFilter</filter-name>
+    <filter-class>by.etc.samodumkina.controller.filter.CharsetFilter</filter-class>
+    <init-param>
+      <param-name>characterEncoding</param-name>
+      <param-value>utf-8</param-value>
+    </init-param>
   </filter>
   <filter-mapping>
-  	<filter-name>CharsetFilter</filter-name>
-  	<url-pattern>/Controller</url-pattern>
+    <filter-name>CharsetFilter</filter-name>
+    <url-pattern>/Controller</url-pattern>
+  </filter-mapping>
+  <filter>
+    <display-name>CatalogPageFilter</display-name>
+    <filter-name>CatalogPageFilter</filter-name>
+    <filter-class>by.etc.samodumkina.controller.filter.CatalogPageFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CatalogPageFilter</filter-name>
+    <url-pattern>/WEB-INF/jsp/main.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
+  <filter>
+    <display-name>LocaleFilter</display-name>
+    <filter-name>LocaleFilter</filter-name>
+    <filter-class>by.etc.samodumkina.controller.filter.LocaleFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LocaleFilter</filter-name>
+    <url-pattern>/*</url-pattern>
   </filter-mapping>
 </web-app>
