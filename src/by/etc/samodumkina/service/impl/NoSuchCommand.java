@@ -13,7 +13,7 @@ public class NoSuchCommand implements Command<String>{
 	@Override
 	public List<String> execute(HttpServletRequest request) {
 		List<String> result = new LinkedList<>();
-		result.add(JSPPageName.ERROR_PAGE);
+		result.add(JSPPageName.ERROR_PAGE.getURL());
 		return result;
 	}
 

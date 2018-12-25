@@ -7,4 +7,5 @@ public class RequestParameterName {
 	public final static String PASSWORD = "password";
 	public final static String EMAIL = "e-mail";
 	public final static String BOOK_ID = "bookId";
+	public final static String CURRENT_PAGE = "current_page";
 }

@@ -10,17 +10,17 @@
 <!DOCTYPE html>
 <html>
 	<title>
-		<fmt:message bundle="${loc}" key="local.catalog" var="catalog" />
-		<c:out value = "${catalog }"/>
+		<fmt:message bundle="${loc}" key="local.liked" var="liked_books" />
+		<c:out value = "${liked_books }"/>
 	</title>
 <head>
 	<meta charset="utf-8">
-	<link rel="stylesheet" href="css/style.css"></link>
 	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	<script src = "js/main.js"></script>
+	<!-- <script src = "js/main.js"></script> -->
+	<link rel="stylesheet" href="css/style.css"></link>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#563d7c">
@@ -32,19 +32,19 @@
 
 		  <div class="collapse navbar-collapse" id="navbar10">
 		    	<ul class="navbar-nav mr-auto">
-		      		<li class="nav-item active">
+		      		<li class="nav-item">
 		        		<a class="nav-link" href="#">
 		        			<fmt:message bundle="${loc}" key="local.catalog" var="catalog" />
 							<c:out value = "${catalog }"/>
 		        		</a>
 		      		</li>
-		      		<li class="nav-item dropdown">
+		      		<li class="nav-item dropdown active">
 		        		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown10" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		        			<fmt:message bundle="${loc}" key="local.profile" var="profile" />
 							<c:out value = "${profile }"/>
 		        		</a>
 		        		<div class="dropdown-menu" aria-labelledby="navbarDropdown10">
-		          			<a class="dropdown-item" href="?command=GET_LIKED_BOOKS_PAGE">
+		          			<a class="dropdown-item" href="#">
 		          				<fmt:message bundle="${loc}" key="local.liked" var="liked_books" />
 								<c:out value = "${liked_books }"/>
 		          			</a>
@@ -60,22 +60,21 @@
 		        		</div>
 		      		</li>
 					 <li class="nav-item">
-					 	<a class="nav-link" href="?command=EN&sessionLocale=en&current_page=CATALOG_PAGE">
-					 	<fmt:message bundle="${loc}" key="local.en" var="EN" />
-					 	<c:out value = "${EN}"/>
+					 	<a class="nav-link" href="?command=EN&sessionLocale=en&current_page=LIKED_BOOKS_PAGE">
+						 	<fmt:message bundle="${loc}" key="local.en" var="EN" />
+						 	<c:out value = "${EN}"/>
 					 	</a>
 					 </li>
 					 <li class="nav-item">
-					 	<a class="nav-link" href="?command=RU&sessionLocale=ru&current_page=CATALOG_PAGE"><fmt:message bundle="${loc}" key="local.ru" var="RU" />
-					 	<c:out value = "${RU}"/>
+					 	<a class="nav-link" href="?command=RU&sessionLocale=ru&current_page=LIKED_BOOKS_PAGE">
+						 	<fmt:message bundle="${loc}" key="local.ru" var="RU" />
+						 	<c:out value = "${RU}"/>
 					 	</a>
 					 </li>
 				</ul>
 		  </div>
 	</nav>
-
-<!--table-responsive сделает таблицу более адаптивной (в bootstrap все адаптивное, но это делает еще лучше), при очень маленьком
-размере экрана появятся скролы, чтобы ее прокручивать. Это свойство обязательно нужно писать в какой-то div, а не в тег table-->
+	
 	<div class="table-responsive">
     <!--table делает таблицу растянутой по странице и визуальнее красивее стандартной-->
     <!--table-hover подсвечивает строку таблицы при наведении-->
@@ -104,12 +103,8 @@
 					<c:out value = "${annotation }"/>
                 </th>
                 <th>
-                	<fmt:message bundle="${loc}" key="local.description" var="description" />
-					<c:out value = "${description }"/>
-                </th>
-                <th>
-                	<fmt:message bundle="${loc}" key="local.add" var="add" />
-					<c:out value = "${add }"/>
+                	<fmt:message bundle="${loc}" key="local.order" var="order" />
+					<c:out value = "${order }"/>
                 </th>
             </tr>
         </thead>
@@ -119,12 +114,9 @@
 						<td><c:out value="${ elem.name }" /></td>
 						<td><c:out value="${ elem.authors }" /></td>
 						<td><c:out value="${ elem.annotation }" /></td>
-						<td><c:out value="${ elem.description }" /></td>
 						<td>
-							<button type = "button" id = "${elem.id}" class="btn">
-								<fmt:message bundle="${loc}" key="local.add_book_to_profile" var="add_book_to_profile" />
-								<c:out value = "${add_book_to_profile }"/>
-							</button>
+							<button type = "button" id = "${elem.id}" class="btn">Заказать на дом</button>
+							<button type = "button" id = "${elem.id}" class="btn">Заказать в зал</button>
 						</td>
 					</tr>
 			</c:forEach>

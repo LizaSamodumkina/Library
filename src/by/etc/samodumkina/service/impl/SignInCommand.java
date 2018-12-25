@@ -35,11 +35,11 @@ public class SignInCommand implements Command<String>{
 			boolean result = userDao.signIn(user);
 			
 			if (result) {
-				answer.add(JSPPageName.CATALOG_PAGE);
-				request.getSession().setAttribute(USER_NAME, login);
+				answer.add(JSPPageName.CATALOG_PAGE.getURL());
+				request.getSession(true).setAttribute(USER_NAME, login);
 				//проверить администратор ли в системе
 			} else {
-				answer.add(JSPPageName.REGISTRATION_PAGE);
+				answer.add(JSPPageName.REGISTRATION_PAGE.getURL());
 			}
 			
 		}catch (DAOException e) {

@@ -14,37 +14,33 @@ import by.etc.samodumkina.dao.pool.ConnectionPool;
 import by.etc.samodumkina.dao.pool.exception.ConnectionPoolException;
 import by.etc.samodumkina.specification.Specification;
 
-public class SQLReadBook implements TakeInfoDAO<Book>{	
+public class SQLReadUserLikedBook implements TakeInfoDAO<Book> {
+
+	private final static String BOOK_ID = "id";
 	private final static String BOOK_NAME = "bookName";
 	private final static String BOOK_AUTHORS = "bookAuthors";
 	private final static String ANNOTATION = "annotation";
-	private final static String DESCRIPTION = "description";
-	private final static String BOOK_NUM = "bookNumber";
-	private final static String BOOK_ID = "id";
-
-	public SQLReadBook() {}
-
+	
+	public SQLReadUserLikedBook() {}
+	
 	@Override
-	public List<Book> read(Specification specification) throws DAOException{
-		List<Book> books = new LinkedList<>();
+	public List<Book> read(Specification specification) throws DAOException {
+		List<Book> result = new LinkedList<>();
 		
 		Statement statement = null;
-		ResultSet result = null;
+		ResultSet resultSet = null;
 		
 		try(Connection connection = ConnectionPool.getInstance().takeConnection()){
+			statement = connection.createStatement();			
+			resultSet = statement.executeQuery(specification.toQuery());
 			
-			statement = connection.createStatement();
-			result = statement.executeQuery(specification.toQuery());
-			
-			while (result.next()) {
+			while(resultSet.next()) {
 				Book book = new Book();
-				book.setId(result.getInt(BOOK_ID));
-				book.setName(result.getString(BOOK_NAME));
-				book.setAuthors(result.getString(BOOK_AUTHORS));
-				book.setAnnotation(result.getString(ANNOTATION));
-				book.setDescription(result.getString(DESCRIPTION));
-				book.setColInLabrary(result.getInt(BOOK_NUM));
-				books.add(book);
+				book.setId(resultSet.getInt(BOOK_ID));
+				book.setName(resultSet.getString(BOOK_NAME));
+				book.setAuthors(resultSet.getString(BOOK_AUTHORS));
+				book.setAnnotation(resultSet.getString(ANNOTATION));
+				result.add(book);
 			}
 			
 		} catch (SQLException e) {
@@ -53,17 +49,17 @@ public class SQLReadBook implements TakeInfoDAO<Book>{
 			throw new DAOException("cannot create exception due to problems with connection pool", e);
 		} finally {
 			try {
-				if (result != null) {
-					result.close();
-				}
 				if (statement != null) {
 					statement.close();
+				}
+				if (resultSet != null) {
+					resultSet.close();
 				}
 			} catch (SQLException e) {
 				throw new DAOException("cannot close resultset or statement", e);
 			}
 		}
 		
-		return books;
+		return result;
 	}
 }

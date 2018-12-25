@@ -8,9 +8,12 @@ import by.etc.samodumkina.service.CommandName;
 import by.etc.samodumkina.service.impl.AddUserLikedBookCommand;
 import by.etc.samodumkina.service.impl.ChangeToENLocale;
 import by.etc.samodumkina.service.impl.ChangeToRULocale;
+import by.etc.samodumkina.service.impl.GetLikedBooksPageCommand;
 import by.etc.samodumkina.service.impl.RegistrationCommand;
 import by.etc.samodumkina.service.impl.SignInCommand;
+import by.etc.samodumkina.service.impl.SignOutCommand;
 import by.etc.samodumkina.service.impl.TakeAllBookCommand;
+import by.etc.samodumkina.service.impl.TakeAllUserLikedBookCommand;
 
 public class ServiceFactory {
 	private final static ServiceFactory instance = new ServiceFactory();
@@ -24,6 +27,9 @@ public class ServiceFactory {
 		commands.put(CommandName.EN, new ChangeToENLocale());
 		commands.put(CommandName.RU, new ChangeToRULocale());
 		commands.put(CommandName.ADD_AS_LIKED_BOOK, new AddUserLikedBookCommand());
+		commands.put(CommandName.SIGN_OUT, new SignOutCommand());
+		commands.put(CommandName.GET_LIKED_BOOKS_PAGE, new GetLikedBooksPageCommand());
+		commands.put(CommandName.GET_USER_LIKED_BOOKS, new TakeAllUserLikedBookCommand());
 	}
 	
 	public static ServiceFactory getInstance() {
@@ -31,7 +37,6 @@ public class ServiceFactory {
 	}
 	
 	public Command getCommand(String commandName) {
-		System.out.println("command: " + commandName);
 		CommandName name = CommandName.valueOf(commandName);
 		
 		Command command;

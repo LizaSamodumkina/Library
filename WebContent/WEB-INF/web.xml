@@ -56,4 +56,15 @@
     <filter-name>LocaleFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  <filter>
+    <display-name>LikedBookPageFilter</display-name>
+    <filter-name>LikedBookPageFilter</filter-name>
+    <filter-class>by.etc.samodumkina.controller.filter.LikedBookPageFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LikedBookPageFilter</filter-name>
+    <url-pattern>/WEB-INF/jsp/likedbooks.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
 </web-app>

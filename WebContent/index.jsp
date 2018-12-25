@@ -9,14 +9,43 @@
 
 <!DOCTYPE html>
 <html>
-<title>Вход</title>
+<title>
+	<fmt:message bundle="${loc}" key="local.welcome" var="welcome" />
+	<c:out value = "${welcome }"/>
+</title>
 <head>
 	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> 
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="css/style.css"></link>
 </head>
 <body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#563d7c">
+		  <p class="navbar-brand">
+		  		<img src="img/book.png" style="width: 5%; background-color: #563d7c"/>
+		  		<fmt:message bundle="${loc}" key="local.library" var="library" />
+				<c:out value = "${library }"/>
+		  </p>
+
+		  <div class="collapse navbar-collapse" id="navbar10">
+		    	<ul class="navbar-nav">
+					 <li class="nav-item">
+						 <a class="nav-link" href="?command=EN&sessionLocale=en&current_page=CATALOG_PAGE">
+						 	<fmt:message bundle="${loc}" key="local.en" var="EN" />
+					 		<c:out value = "${EN}"/>
+					 	</a>
+					 </li>
+					 <li class="nav-item">
+					 	<a class="nav-link" href="?command=RU&sessionLocale=ru&current_page=CATALOG_PAGE">
+						 	<fmt:message bundle="${loc}" key="local.ru" var="RU" />
+						 	<c:out value = "${RU}"/>
+					 	</a>
+					 </li>
+				</ul>
+		  </div>
+	</nav>
 
 	<form action = 'Controller' method = "get" id = "entry_form">
 		<input type = 'hidden' name = 'command' value = 'SIGN_IN'>
@@ -45,7 +74,7 @@
 		</div>
 		
 		<br/>
-		<input type = 'button' name = "signIn" id = "entry_button" value="${logIn}" class="btn btn-primary">
+		<input type = 'button' name = "signIn" id = "entry_button" value="${logIn}" class="btn button_style">
 	</form>
 	
 	<form action = "Controller" method = "get" id = "registration_form">
@@ -73,10 +102,10 @@
 		
 		<br/>
 		<fmt:message bundle="${loc}" key="local.sign_up_button" var="SignUp" />
-		<input type = 'button' name = "registration" id = "registration" value = "${SignUp}" class="btn btn-primary">
+		<input type = 'button' name = "registration" id = "registration" value = "${SignUp}" class="btn">
 	</form>
 	
-	<form action = "Controller" method = "post">
+	<!--<form action = "Controller" method = "post">
 		<input type = 'hidden' name = 'command' value = 'EN'>
 		<fmt:message bundle="${loc}" key="local.en" var="EN" />
 		<input type = 'submit' name = "registration" value = "${EN }" class="btn btn-primary">
@@ -89,17 +118,17 @@
 	
 	 <ul>
 		 <li>
-		 	<a href="?sessionLocale=en">
+		 	<a href="?sessionLocale=en&current_page=MAIN_PAGE">
 		 	<fmt:message bundle="${loc}" key="local.en" var="EN" />
 		 	<c:out value = "${EN}"/>
 		 	</a>
 		 </li>
 		 <li>
-		 	<a href="?sessionLocale=ru"><fmt:message bundle="${loc}" key="local.ru" var="RU" />
+		 	<a href="?sessionLocale=ru&current_page=MAIN_PAGE"><fmt:message bundle="${loc}" key="local.ru" var="RU" />
 		 	<c:out value = "${RU}"/>
 		 	</a>
 		 </li>
-	 </ul>
+	 </ul> -->
 	<script type="text/javascript" src="js/md5-min.js"></script>
 	<script src = "js/index.js"></script>
 </body>

@@ -15,24 +15,22 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.etc.samodumkina.bean.Book;
+import by.etc.samodumkina.service.CommandName;
 import by.etc.samodumkina.service.exception.ServiceException;
 import by.etc.samodumkina.service.factory.ServiceFactory;
 
-public class CatalogPageFilter implements Filter {
-	
-	private final static String COMMAND_NAME = "TAKE_ALL_BOOKS";
+public class LikedBookPageFilter implements Filter {
 	private final static String ATTRIBUTE_NAME = "list";
 	
-	private final static Logger log = LogManager.getLogger(CatalogPageFilter.class);
+	private final static Logger log = LogManager.getLogger(LikedBookPageFilter.class);
 
-    public CatalogPageFilter() {}
+    public LikedBookPageFilter() {}
 
 	public void destroy() {}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-	
 		try {
-			List<Book> books = ServiceFactory.getInstance().getCommand(COMMAND_NAME).execute((HttpServletRequest)request);
+			List<Book> books = ServiceFactory.getInstance().getCommand(CommandName.GET_USER_LIKED_BOOKS.name()).execute((HttpServletRequest)request);
 			request.setAttribute(ATTRIBUTE_NAME, books);
 		} catch (ServiceException e) {
 			log.error(e.getStackTrace());
@@ -40,6 +38,7 @@ public class CatalogPageFilter implements Filter {
 		
 		chain.doFilter(request, response);
 	}
+
 
 	public void init(FilterConfig fConfig) throws ServletException {}
 

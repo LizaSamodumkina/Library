@@ -37,7 +37,7 @@ public class AddUserLikedBookCommand implements Command<String>{
 		List<String> answer = new LinkedList<String>();
 		try {
 			adder.add(infoToAdd);
-			answer.add(JSPPageName.CATALOG_PAGE);
+			answer.add(JSPPageName.CATALOG_PAGE.getURL());
 		} catch (DAOException e) {
 			throw new ServiceException("can't add user liked book", e);
 		}

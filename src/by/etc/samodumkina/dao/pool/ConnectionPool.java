@@ -27,7 +27,7 @@ public class ConnectionPool {
 	
 	private static final ReentrantLock lock = new ReentrantLock();	
 
-	public ConnectionPool() {
+	private ConnectionPool() {
 		DBResourceManager manager = DBResourceManager.getInstance();
 		this.driverName = manager.getValue(DBParameter.DB_DRIVER.getValue());
 		this.url = manager.getValue(DBParameter.DB_URL.getValue());

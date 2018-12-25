@@ -35,7 +35,7 @@ public class RegistrationCommand implements Command<String>{
 			
 			userDao.registration(user);
 			
-			answer.add(JSPPageName.CATALOG_PAGE);
+			answer.add(JSPPageName.CATALOG_PAGE.getURL());
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
