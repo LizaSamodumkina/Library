@@ -22,6 +22,7 @@ public class Controller extends HttpServlet {
 	private final static Logger log = LogManager.getLogger(Controller.class);
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("get");
 
 		String page = mainLogic(request, response);
 		
@@ -34,6 +35,7 @@ public class Controller extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("post");
 		
 		String page = mainLogic(request, response);
 		

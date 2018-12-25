@@ -1,6 +1,5 @@
 $(document).ready(function() {
 	$(document).on("click","button",function(){
-		alert("clicked");
 		$.ajax({
 			url: 'http://localhost:8080/WebApp/Controller',
 			method: 'post',

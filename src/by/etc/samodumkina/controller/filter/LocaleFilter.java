@@ -20,8 +20,12 @@ public class LocaleFilter implements Filter {
 	    if (req.getParameter("sessionLocale") != null) {
 	    	req.getSession().setAttribute("local", req.getParameter("sessionLocale"));
 	    }
+	    
+	    System.out.println("LocaleFilter");
 		
 		chain.doFilter(request, response);
+		
+		System.out.println("end locale filter");
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {}

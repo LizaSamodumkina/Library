@@ -23,6 +23,8 @@ public class CharsetFilter implements Filter {
 		
 		context.log("Charset was set");
 		
+		System.out.println("charsetFilter");
+		
 		chain.doFilter(request, response);
 	}
 	

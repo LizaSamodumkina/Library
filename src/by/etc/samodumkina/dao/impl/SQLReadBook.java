@@ -13,7 +13,7 @@ import by.etc.samodumkina.dao.exception.DAOException;
 import by.etc.samodumkina.dao.pool.ConnectionPool;
 import by.etc.samodumkina.dao.pool.exception.ConnectionPoolException;
 
-public class SQLReadBook implements TakeInfoDAO{
+public class SQLReadBook implements TakeInfoDAO<Book>{
 	private final static String SELECT = "select * from books";
 	
 	private final static String BOOK_NAME = "bookName";

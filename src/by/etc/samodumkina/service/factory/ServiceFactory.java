@@ -5,7 +5,7 @@ import java.util.Map;
 
 import by.etc.samodumkina.service.Command;
 import by.etc.samodumkina.service.CommandName;
-import by.etc.samodumkina.service.impl.AddUserLikedBook;
+import by.etc.samodumkina.service.impl.AddUserLikedBookCommand;
 import by.etc.samodumkina.service.impl.ChangeToENLocale;
 import by.etc.samodumkina.service.impl.ChangeToRULocale;
 import by.etc.samodumkina.service.impl.RegistrationCommand;
@@ -23,7 +23,7 @@ public class ServiceFactory {
 		commands.put(CommandName.TAKE_ALL_BOOKS, new TakeAllBookCommand());
 		commands.put(CommandName.EN, new ChangeToENLocale());
 		commands.put(CommandName.RU, new ChangeToRULocale());
-		commands.put(CommandName.ADD_AS_LIKED_BOOK, new AddUserLikedBook());
+		commands.put(CommandName.ADD_AS_LIKED_BOOK, new AddUserLikedBookCommand());
 	}
 	
 	public static ServiceFactory getInstance() {
