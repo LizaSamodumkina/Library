@@ -38,12 +38,7 @@ public class CatalogPageFilter implements Filter {
 			log.error(e.getStackTrace());
 		}
 		
-		System.out.println("catalogPageFilter");
-		
 		chain.doFilter(request, response);
-		
-		
-		System.out.println("end catalogpagefilter");
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {}
