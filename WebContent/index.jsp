@@ -47,35 +47,41 @@
 		  </div>
 	</nav>
 
-	<form action = 'Controller' method = "get" id = "entry_form">
+	<c:out value="${requestScope.error_message }"/>
+	
+	<div class="container">
+	<form action = 'Controller' method = "get" id = "entry_form" class="form-horizontal">
 		<input type = 'hidden' name = 'command' value = 'SIGN_IN'>
 		
 		<div class="form-group">
 			<div class="form-row align-items-center">
 				<label for="login">
 					<fmt:message bundle="${loc}" key="local.login" var="Login" />
-					<c:out value = "${Login }"/>
+					<c:out value = "${Login}"/>
 				</label>
 				<div class = "col-2">
-				<input name = 'login' type='text' id = "login" class="form-control form-control-sm" placeholder = "Логин">
+					<input name = 'login' type='text' id = "login" class="form-control form-control-sm" placeholder = "${Login}">
 				</div>
 			</div>
 			
 			<br/>
 			
-			<div class="form-group">
-			<label for = "password">
-				<fmt:message bundle="${loc}" key="local.password" var="Password" />
-				<c:out value = "${Password }"/>
-			</label>
-			<fmt:message bundle="${loc}" key="local.log_in_button" var="logIn" />
-			<input name = 'password' type='password' id = "password" class="form-control form-control-sm" placeholder = "Пароль">
+			<div class="form-row align-items-center">
+				<label for = "password">
+					<fmt:message bundle="${loc}" key="local.password" var="Password" />
+					<c:out value = "${Password}"/>
+				</label>
+					<div class = "col-2">
+					<input name = 'password' type='password' id = "password" class="form-control form-control-sm" placeholder = "${Password}">
+				</div>
 			</div>
 		</div>
 		
 		<br/>
+		<fmt:message bundle="${loc}" key="local.log_in_button" var="logIn" />
 		<input type = 'button' name = "signIn" id = "entry_button" value="${logIn}" class="btn button_style">
 	</form>
+	</div>
 	
 	<form action = "Controller" method = "get" id = "registration_form">
 		<input type = 'hidden' name = 'command' value = 'REGISTRATION'>

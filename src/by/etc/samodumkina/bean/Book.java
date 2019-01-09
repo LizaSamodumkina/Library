@@ -27,6 +27,14 @@ public class Book {
 		this.colInLabrary = colInLabrary;
 	}
 	
+	public Book (String name, String authors, String annotation, String description, int colInLabrary) {
+		this.name = name;
+		this.authors = authors;
+		this.annotation = annotation;
+		this.description = description;
+		this.colInLabrary = colInLabrary;
+	}
+	
 	public int getId() {
 		return id;
 	}

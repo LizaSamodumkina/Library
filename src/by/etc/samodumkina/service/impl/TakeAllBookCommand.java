@@ -22,7 +22,7 @@ public class TakeAllBookCommand implements Command<Book> {
 		try {
 			Specification specification = new AllBookSpecification();
 			
-			books = DAOFactory.getInstance().takeBookDAO().read(specification);
+			books = DAOFactory.getInstance().takeBookReader().read(specification);
 		} catch (DAOException e) {
 			throw new ServiceException("cannot take all books due to problems with DAL", e);
 		}

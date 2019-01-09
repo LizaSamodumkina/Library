@@ -12,6 +12,8 @@ import by.etc.samodumkina.dao.TakeInfoDAO;
 import by.etc.samodumkina.dao.exception.DAOException;
 import by.etc.samodumkina.dao.pool.ConnectionPool;
 import by.etc.samodumkina.dao.pool.exception.ConnectionPoolException;
+import by.etc.samodumkina.dao.util.CloseResultSet;
+import by.etc.samodumkina.dao.util.CloseStatement;
 import by.etc.samodumkina.specification.Specification;
 
 public class SQLReadBook implements TakeInfoDAO<Book>{	
@@ -52,16 +54,8 @@ public class SQLReadBook implements TakeInfoDAO<Book>{
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("cannot create exception due to problems with connection pool", e);
 		} finally {
-			try {
-				if (result != null) {
-					result.close();
-				}
-				if (statement != null) {
-					statement.close();
-				}
-			} catch (SQLException e) {
-				throw new DAOException("cannot close resultset or statement", e);
-			}
+			CloseResultSet.getInstance().close(result);
+			CloseStatement.getInstance().close(statement);
 		}
 		
 		return books;

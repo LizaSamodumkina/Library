@@ -11,7 +11,7 @@ public class UserLikedBookSpecification extends SQLSpecification {
 
 	@Override
 	public String toSQLQuery() {
-		return "select userlikedbooks.id as id, bookName, bookAuthors, annotation from userlikedbooks left join users on userlikedbooks.userIdLB = users.login left join books on userlikedbooks.bookIdLB = books.id where users.login = \"" + this.login + "\"";
+		return "select userlikedbooks.id as id, bookName, bookAuthors, annotation from userlikedbooks left join users on userlikedbooks.userIdLB = users.user_id left join books on userlikedbooks.bookIdLB = books.id where users.user_id = (select user_id from users where login = \"" + this.login + "\")";
 	}
 
 }

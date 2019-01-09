@@ -31,6 +31,7 @@ public class LikedBookPageFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		try {
 			List<Book> books = ServiceFactory.getInstance().getCommand(CommandName.GET_USER_LIKED_BOOKS.name()).execute((HttpServletRequest)request);
+			
 			request.setAttribute(ATTRIBUTE_NAME, books);
 		} catch (ServiceException e) {
 			log.error(e.getStackTrace());
