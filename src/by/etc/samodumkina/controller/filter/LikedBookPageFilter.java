@@ -40,10 +40,6 @@ public class LikedBookPageFilter implements Filter {
 			try {
 				List<Book> books = ServiceFactory.getInstance().getCommand(CommandName.GET_USER_LIKED_BOOKS.name()).execute((HttpServletRequest)request);
 				
-				for (Book book: books) {
-					System.out.println(book);
-				}
-				
 				request.setAttribute(ATTRIBUTE_NAME, books);
 			} catch (ServiceException e) {
 				log.error(e.getStackTrace());
