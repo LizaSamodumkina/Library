@@ -50,8 +50,8 @@ public class SQLReadNeedSendOutBook implements TakeInfoDAO<NeedSendOutBook>{
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("cannot create exception due to problems with connection pool", e);
 		} finally {
-			CloseStatement.getInstance().close(statement);
 			CloseResultSet.getInstance().close(resultSet);
+			CloseStatement.getInstance().close(statement);
 		}
 		
 		return result;

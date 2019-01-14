@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import by.etc.samodumkina.bean.Book;
+import by.etc.samodumkina.controller.SessionAttributeName;
 import by.etc.samodumkina.dao.exception.DAOException;
 import by.etc.samodumkina.dao.factory.DAOFactory;
 import by.etc.samodumkina.service.Command;
@@ -14,11 +15,10 @@ import by.etc.samodumkina.specification.Specification;
 import by.etc.samodumkina.specification.impl.UserLikedBookSpecification;
 
 public class TakeAllUserLikedBookCommand implements Command<Book> {
-	private final static String USER_NAME = "user";
 
 	@Override
 	public List<Book> execute(HttpServletRequest request) throws ServiceException {
-		String login = (String) request.getSession().getAttribute(USER_NAME);
+		String login = (String) request.getSession().getAttribute(SessionAttributeName.USER_NAME);
 		
 		Specification specification = new UserLikedBookSpecification(login);
 		

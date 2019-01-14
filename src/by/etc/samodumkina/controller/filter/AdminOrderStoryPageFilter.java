@@ -8,10 +8,13 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import by.etc.samodumkina.controller.JSPPageName;
+import by.etc.samodumkina.controller.SessionAttributeName;
 import by.etc.samodumkina.service.exception.ServiceException;
 import by.etc.samodumkina.service.factory.ServiceFactory;
 
@@ -25,10 +28,15 @@ public class AdminOrderStoryPageFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
-		try {
-			ServiceFactory.getInstance().getCommand(COMMAND).execute((HttpServletRequest)request);
-		} catch (ServiceException e) {
-			log.error(e.getStackTrace());
+		String user = (String) ((HttpServletRequest)request).getSession().getAttribute(SessionAttributeName.USER_NAME);
+		if (user == null) {
+			((HttpServletResponse)response).sendRedirect(JSPPageName.REDIRECT_MAIN_PAGE.getURL());
+		} else {
+			try {
+				ServiceFactory.getInstance().getCommand(COMMAND).execute((HttpServletRequest)request);
+			} catch (ServiceException e) {
+				log.error(e.getStackTrace());
+			}
 		}
 		
 		chain.doFilter(request, response);

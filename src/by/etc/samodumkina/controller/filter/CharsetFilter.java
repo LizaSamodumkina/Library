@@ -11,6 +11,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 public class CharsetFilter implements Filter {
+	private final static String CHARSET_ENCODING = "characterEncoding";
 	
 	private String encoding;
 	private ServletContext context;
@@ -28,7 +29,7 @@ public class CharsetFilter implements Filter {
 	
 	@Override
 	public void init(FilterConfig fConfig) throws ServletException{
-		encoding = fConfig.getInitParameter("characterEncoding");
+		encoding = fConfig.getInitParameter(CHARSET_ENCODING);
 		context = fConfig.getServletContext();
 	}
 

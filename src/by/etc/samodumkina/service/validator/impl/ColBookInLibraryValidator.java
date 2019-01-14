@@ -1,7 +1,5 @@
 package by.etc.samodumkina.service.validator.impl;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
-
 import by.etc.samodumkina.service.validator.DataValidator;
 
 public class ColBookInLibraryValidator implements DataValidator<String>{

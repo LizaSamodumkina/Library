@@ -2,11 +2,15 @@ package by.etc.samodumkina.dao.impl;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import by.etc.samodumkina.bean.User;
 import by.etc.samodumkina.dao.UserDAO;
+import by.etc.samodumkina.dao.exception.AlreadyExistDAOException;
 import by.etc.samodumkina.dao.exception.DAOException;
 import by.etc.samodumkina.dao.pool.ConnectionPool;
 import by.etc.samodumkina.dao.pool.exception.ConnectionPoolException;
@@ -53,7 +57,7 @@ public class SQLUserDAO implements UserDAO{
 	}
 
 	@Override
-	public void registration(User user) throws DAOException{
+	public void registration(User user) throws DAOException, AlreadyExistDAOException{
 		PreparedStatement statement = null;
 		
 		try (Connection connection = ConnectionPool.getInstance().takeConnection()){
@@ -65,6 +69,8 @@ public class SQLUserDAO implements UserDAO{
 			
 			statement.execute();
 			
+		} catch (MySQLIntegrityConstraintViolationException e) {
+			throw new AlreadyExistDAOException(e);
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		} catch (ConnectionPoolException e) {

@@ -4,18 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Savepoint;
 import java.util.List;
 
 import by.etc.samodumkina.bean.PreOrder;
 import by.etc.samodumkina.dao.AddInfoDAO;
 import by.etc.samodumkina.dao.exception.DAOException;
-import by.etc.samodumkina.dao.pool.ConnectionPool;
+import by.etc.samodumkina.dao.pool.SampleTransactionManager;
 import by.etc.samodumkina.dao.pool.exception.ConnectionPoolException;
-import by.etc.samodumkina.dao.util.CloseConnection;
 import by.etc.samodumkina.dao.util.CloseResultSet;
 import by.etc.samodumkina.dao.util.CloseStatement;
-import by.etc.samodumkina.dao.util.RollBackTransaction;
 
 public class SQLAddBookToQueue implements AddInfoDAO<PreOrder>{
 	private final static String SELECT_USER_ORDERS_NUM = "select count(*) as number from bookOrderStory where userId = (select user_id from users where login = ?) and isReplace = 0";
@@ -39,61 +36,53 @@ public class SQLAddBookToQueue implements AddInfoDAO<PreOrder>{
 	private final static int SMALLEST_NUMBER_FOR_AVAILABLE_BOOK = 0;
 	private final static int AVAILABLE_NUMBER_FOR_OLD_NOT_REPLACED_ORDERS = 1;
 	
-	private final static String POINT_NAME = "point";
-	
-	private Connection connection;
-	private PreparedStatement statement;
-	private ResultSet resultSet;
-	
-	
 	@Override
-	public boolean add(List<PreOrder> data) throws DAOException {	
-		
-		Savepoint point = null;
+	public boolean add(List<PreOrder> data) throws DAOException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
 		
 		try{
-			connection = ConnectionPool.getInstance().takeConnection();
-			connection.setAutoCommit(false);
+			SampleTransactionManager.getInstance().startTransaction();
+			connection = SampleTransactionManager.getInstance().takeConnection();
 			
-			point = connection.setSavepoint(POINT_NAME);
-			
-			if (!isUserDoNotBlocked(data.get(PREORDER_INDEX).getUser().getLogin())){
-				System.out.println("bloke");
-				addUserToBlockeList(data.get(PREORDER_INDEX).getUser().getLogin());
+			if (!isUserDoNotBlocked(statement, resultSet, connection, data.get(PREORDER_INDEX).getUser().getLogin())){
+				
+				addUserToBlockeList(statement, connection, data.get(PREORDER_INDEX).getUser().getLogin());
 				return false;
 			}
 			
-			if (!isUserHasNormalOrderNumber(data.get(PREORDER_INDEX).getUser().getLogin())) {
-				System.out.println("number");
+			if (!isUserHasNormalOrderNumber(statement, resultSet, connection, data.get(PREORDER_INDEX).getUser().getLogin())) {
+				
 				return false;
 			}
 			
-			if (!isHasAvailableBook(data.get(PREORDER_INDEX).getLikedBookId())) {
-				System.out.println("av");
+			if (!isHasAvailableBook(statement, resultSet, connection, data.get(PREORDER_INDEX).getLikedBookId())) {
+				
 				return false;
 			}
-			insertIntoQueue(data);
-			updateAvailableBookNum(data.get(PREORDER_INDEX).getLikedBookId());
-			deleteFromLiked(data.get(PREORDER_INDEX).getLikedBookId());
+			insertIntoQueue(statement, connection, data);
+			updateAvailableBookNum(statement, connection, data.get(PREORDER_INDEX).getLikedBookId());
+			deleteFromLiked(statement, connection, data.get(PREORDER_INDEX).getLikedBookId());
 			
-			connection.commit();
+			SampleTransactionManager.getInstance().commit();
 		} catch (SQLException e) {
-			RollBackTransaction.getInstance().rollBack(connection, point);
+			SampleTransactionManager.getInstance().rollback();
 			throw new DAOException("cannot add book to queue", e);
 		} catch (ConnectionPoolException e) {
-			RollBackTransaction.getInstance().rollBack(connection, point);
-			throw new DAOException("cannot create new order to home due to problems with connection pool", e);
+			throw new DAOException("cannot add book to queue due to problems with connection pool", e);
 		} finally {
-			 CloseStatement.getInstance().close(statement);
 			 CloseResultSet.getInstance().close(resultSet);
-			 CloseConnection.getInstance().close(connection);
+			 CloseStatement.getInstance().close(statement);
+			 SampleTransactionManager.getInstance().closeConnection();
 		}
 		
 		return true;
 		
 	}
+
 	
-	private boolean isUserHasNormalOrderNumber(String login) throws SQLException {
+	private boolean isUserHasNormalOrderNumber(PreparedStatement statement, ResultSet resultSet, Connection connection, String login) throws SQLException {
 		statement = connection.prepareStatement(SELECT_USER_ORDERS_NUM);
 		
 		statement.setString(FIRST, login);
@@ -110,7 +99,7 @@ public class SQLAddBookToQueue implements AddInfoDAO<PreOrder>{
 		return answer;
 	}
 	
-	private boolean isUserDoNotBlocked(String login) throws SQLException {
+	private boolean isUserDoNotBlocked(PreparedStatement statement, ResultSet resultSet, Connection connection, String login) throws SQLException {
 		statement = connection.prepareStatement(SELECT_USER_OLD_NOT_REPLACED_ORDERS);
 		
 		statement.setString(FIRST, login);
@@ -128,7 +117,7 @@ public class SQLAddBookToQueue implements AddInfoDAO<PreOrder>{
 		return answer;
 	}
 	
-	private void addUserToBlockeList(String login) throws SQLException {
+	private void addUserToBlockeList(PreparedStatement statement, Connection connection, String login) throws SQLException {
 		statement = connection.prepareStatement(INSERT_USER_TOBLOCKE_LIST);
 		
 		statement.setString(FIRST, login);
@@ -136,7 +125,7 @@ public class SQLAddBookToQueue implements AddInfoDAO<PreOrder>{
 		statement.execute();
 	}
 	
-	private boolean isHasAvailableBook(String bookId) throws SQLException {
+	private boolean isHasAvailableBook(PreparedStatement statement, ResultSet resultSet, Connection connection, String bookId) throws SQLException {
 		statement = connection.prepareStatement(SELECT);
 		
 		statement.setString(FIRST, bookId);
@@ -145,6 +134,7 @@ public class SQLAddBookToQueue implements AddInfoDAO<PreOrder>{
 		
 		boolean answer = false;
 		while(resultSet.next()) {
+			System.out.println(resultSet.getInt(AVAILABLE_BOOK_NUMBER));
 			if (resultSet.getInt(AVAILABLE_BOOK_NUMBER) > SMALLEST_NUMBER_FOR_AVAILABLE_BOOK) {
 				answer = true;
 			}
@@ -153,7 +143,7 @@ public class SQLAddBookToQueue implements AddInfoDAO<PreOrder>{
 		return answer;
 	}
 
-	private void insertIntoQueue(List<PreOrder> data) throws SQLException {
+	private void insertIntoQueue(PreparedStatement statement, Connection connection, List<PreOrder> data) throws SQLException {
 		statement = connection.prepareStatement(INSERT);
 		
 		statement.setString(FIRST, data.get(PREORDER_INDEX).getUser().getLogin());
@@ -169,7 +159,7 @@ public class SQLAddBookToQueue implements AddInfoDAO<PreOrder>{
 		statement.execute();
 	}
 	
-	private void deleteFromLiked(String bookId) throws SQLException {
+	private void deleteFromLiked(PreparedStatement statement, Connection connection, String bookId) throws SQLException {
 		statement = connection.prepareStatement(DELETE_FROM_LIKED);
 		
 		statement.setString(FIRST, bookId);
@@ -177,7 +167,7 @@ public class SQLAddBookToQueue implements AddInfoDAO<PreOrder>{
 		statement.execute();
 	}
 
-	private void updateAvailableBookNum(String bookId) throws SQLException {
+	private void updateAvailableBookNum(PreparedStatement statement, Connection connection, String bookId) throws SQLException {
 		statement = connection.prepareStatement(UPDATE_AVAILABLE_BOOK_NUM);
 		
 		statement.setInt(FIRST, Integer.parseInt(bookId));

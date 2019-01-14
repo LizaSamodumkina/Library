@@ -27,6 +27,13 @@ public class Book {
 		this.colInLabrary = colInLabrary;
 	}
 	
+	public Book (String name, String authors, String annotation, int colInLabrary) {
+		this.name = name;
+		this.authors = authors;
+		this.annotation = annotation;
+		this.colInLabrary = colInLabrary;
+	}
+	
 	public Book (String name, String authors, String annotation, String description, int colInLabrary) {
 		this.name = name;
 		this.authors = authors;
@@ -81,6 +88,14 @@ public class Book {
 
 	public void setColInLabrary(int colInLabrary) {
 		this.colInLabrary = colInLabrary;
+	}
+	
+	public String createDescription(String publisher, String publishingYear, String pageNum) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Издательство: ").append(publisher);
+		builder.append(", Год издания: ").append(publishingYear);
+		builder.append(", Количество страниц: ").append(pageNum);
+		return builder.toString();
 	}
 
 	@Override

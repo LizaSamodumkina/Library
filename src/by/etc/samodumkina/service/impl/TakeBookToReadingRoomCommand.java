@@ -9,19 +9,21 @@ import javax.servlet.http.HttpServletRequest;
 import by.etc.samodumkina.bean.PreOrder;
 import by.etc.samodumkina.bean.User;
 import by.etc.samodumkina.controller.JSPPageName;
+import by.etc.samodumkina.controller.RequestParameterName;
+import by.etc.samodumkina.controller.SessionAttributeName;
 import by.etc.samodumkina.dao.exception.DAOException;
 import by.etc.samodumkina.dao.factory.DAOFactory;
 import by.etc.samodumkina.service.Command;
 import by.etc.samodumkina.service.exception.ServiceException;
+import by.etc.samodumkina.service.util.UserErrorMessage;
 
 public class TakeBookToReadingRoomCommand implements Command<String> {
-	private final static String BOOK_ID = "likedBookId";
-	private final static String USER_NAME = "user";
+	private final static String CANT_ORDER = "local.cant_order";
 
 	@Override
 	public List<String> execute(HttpServletRequest request) throws ServiceException {
-		String bookId = (String) request.getParameter(BOOK_ID);
-		String userName = (String) request.getSession().getAttribute(USER_NAME);
+		String bookId = (String) request.getParameter(RequestParameterName.LIKED_BOOK_ID);
+		String userName = (String) request.getSession().getAttribute(SessionAttributeName.USER_NAME);
 		boolean isOrderToHome = false;
 		
 		PreOrder preorder = new PreOrder(new User(userName), bookId, isOrderToHome);
@@ -29,7 +31,10 @@ public class TakeBookToReadingRoomCommand implements Command<String> {
 		data.add(preorder);
 		
 		try {
-			DAOFactory.getInstance().takeAddBookToQueue().add(data);
+			boolean answer = DAOFactory.getInstance().takeAddBookToQueue().add(data);
+			if (!answer) {
+				UserErrorMessage.show(request, CANT_ORDER);
+			}
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}

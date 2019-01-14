@@ -2,11 +2,10 @@ package by.etc.samodumkina.bean;
 
 import java.io.Serializable;
 
-import by.etc.samodumkina.util.Literal;
-
 public class User implements Serializable{
 	
 	private static final long serialVersionUID = 7763933806103508187L;
+	private static final String EMPTY_STRING = "";
 	
 	private String login;
 	private String password;
@@ -21,7 +20,7 @@ public class User implements Serializable{
 	public User(String login, String password) {
 		this.login = login;
 		this.password = password;
-		email = Literal.EMPTY_STRING;
+		email = EMPTY_STRING;
 	}
 
 	public User(String login, String password, String email) {

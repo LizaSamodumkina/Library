@@ -24,7 +24,7 @@ public class TakeAllBookCommand implements Command<Book> {
 			
 			books = DAOFactory.getInstance().takeBookReader().read(specification);
 		} catch (DAOException e) {
-			throw new ServiceException("cannot take all books due to problems with DAL", e);
+			throw new ServiceException("cannot take all books due to problems with DAO", e);
 		}
 		return books;
 	}

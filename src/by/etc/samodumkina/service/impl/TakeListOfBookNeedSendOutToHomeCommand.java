@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import by.etc.samodumkina.bean.NeedSendOutBook;
 import by.etc.samodumkina.controller.JSPPageName;
+import by.etc.samodumkina.controller.RequestAttributeName;
 import by.etc.samodumkina.controller.RequestParameterName;
 import by.etc.samodumkina.dao.exception.DAOException;
 import by.etc.samodumkina.dao.factory.DAOFactory;
@@ -17,8 +18,6 @@ import by.etc.samodumkina.specification.impl.TakeNeedSendOutBookToHomeByUserSpec
 import by.etc.samodumkina.specification.impl.TakeNeedSendOutBookToHomeSpecification;
 
 public class TakeListOfBookNeedSendOutToHomeCommand implements Command<String> {
-	private final static String ATTRIBUTE_NAME = "list";
-	private final static String IS_READING_ROOM_INFO = "isReadingRoomInfo";
 	private final static String FALSE = "false";
 
 	@Override
@@ -37,8 +36,8 @@ public class TakeListOfBookNeedSendOutToHomeCommand implements Command<String> {
 		try {
 			List<NeedSendOutBook> books = DAOFactory.getInstance().takeReadSendOutBookToReadingRoom().read(specification);
 			
-			request.setAttribute(ATTRIBUTE_NAME, books);
-			request.setAttribute(IS_READING_ROOM_INFO, FALSE);
+			request.setAttribute(RequestAttributeName.LIST, books);
+			request.setAttribute(RequestAttributeName.IS_READING_ROOM_INFO, FALSE);
 			
 			result.add(JSPPageName.ADMIN_MAIN_PAGE.getURL());
 		} catch (DAOException e) {

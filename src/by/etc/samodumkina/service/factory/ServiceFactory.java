@@ -10,6 +10,8 @@ import by.etc.samodumkina.service.impl.AddUserLikedBookCommand;
 import by.etc.samodumkina.service.impl.ChangeToENLocale;
 import by.etc.samodumkina.service.impl.ChangeToRULocale;
 import by.etc.samodumkina.service.impl.CreateOrderByAdminCommand;
+import by.etc.samodumkina.service.impl.DeleteBlockedUserCommand;
+import by.etc.samodumkina.service.impl.DeleteLikedBookCommand;
 import by.etc.samodumkina.service.impl.GetAdminAddNewBookPageCommand;
 import by.etc.samodumkina.service.impl.GetAdminDeleteBookPageCommand;
 import by.etc.samodumkina.service.impl.GetAdminMainPageCommand;
@@ -18,11 +20,13 @@ import by.etc.samodumkina.service.impl.GetCatalogPageCommand;
 import by.etc.samodumkina.service.impl.GetLikedBooksPageCommand;
 import by.etc.samodumkina.service.impl.GetOrderPageCommand;
 import by.etc.samodumkina.service.impl.GetOrderStoryPageCommand;
+import by.etc.samodumkina.service.impl.GetUserBlockedPageCommand;
 import by.etc.samodumkina.service.impl.RegistrationCommand;
 import by.etc.samodumkina.service.impl.SignInCommand;
 import by.etc.samodumkina.service.impl.SignOutCommand;
 import by.etc.samodumkina.service.impl.TakeAllBookCommand;
 import by.etc.samodumkina.service.impl.TakeAllUserLikedBookCommand;
+import by.etc.samodumkina.service.impl.TakeBlockedUserCommand;
 import by.etc.samodumkina.service.impl.TakeBookToHomeCommand;
 import by.etc.samodumkina.service.impl.TakeBookToReadingRoomCommand;
 import by.etc.samodumkina.service.impl.TakeListOfAdminOrderStoryCommand;
@@ -62,6 +66,10 @@ public class ServiceFactory {
 		commands.put(CommandName.GET_ADD_NEW_BOOK_PAGE, new GetAdminAddNewBookPageCommand());
 		commands.put(CommandName.GET_DELETE_BOOK_PAGE, new GetAdminDeleteBookPageCommand());
 		commands.put(CommandName.ADD_NEW_BOOK, new AddNewBookCommand());
+		commands.put(CommandName.DELETE_LIKED_BOOK, new DeleteLikedBookCommand());
+		commands.put(CommandName.GET_BLOCKED_USERS_PAGE, new GetUserBlockedPageCommand());
+		commands.put(CommandName.BLOKED_USERS, new TakeBlockedUserCommand());
+		commands.put(CommandName.DELETE_BLOKED_USER, new DeleteBlockedUserCommand());
 	}
 	
 	public static ServiceFactory getInstance() {

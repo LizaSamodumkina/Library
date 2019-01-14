@@ -40,15 +40,13 @@ public class ConnectionPool {
 		}
 	}
 	
-	public static ConnectionPool getInstance() {
+	public static ConnectionPool getInstance() throws ConnectionPoolException {
 		try {
 			lock.lock();
 			if (instance == null) {
 				instance = new ConnectionPool();
 				instance.initialization();
 			}
-		} catch(ConnectionPoolException e) {
-			//???????????????
 		} finally {
 			lock.unlock();
 		}
@@ -96,15 +94,19 @@ public class ConnectionPool {
 		}
 	}
 	
-	public void closePool() throws SQLException {
-		Connection con;
-		while((con = connections.poll()) != null) {
-			((PooledConnection) con).release();
+	public void closePool() throws ConnectionPoolException{
+		try {
+			Connection con;
+			while((con = connections.poll()) != null) {
+				((PooledConnection) con).release();
+			}
+			Enumeration<java.sql.Driver> drivers = DriverManager.getDrivers();		
+			while(drivers.hasMoreElements()) {
+				DriverManager.deregisterDriver(drivers.nextElement());
+			}
+			instance = null;
+		} catch (SQLException e) {
+			throw new ConnectionPoolException(e);
 		}
-		Enumeration<java.sql.Driver> drivers = DriverManager.getDrivers();		
-		while(drivers.hasMoreElements()) {
-			DriverManager.deregisterDriver(drivers.nextElement());
-		}
-		instance = null;
 	}
 }

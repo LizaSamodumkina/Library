@@ -19,8 +19,15 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import by.etc.samodumkina.dao.pool.exception.ConnectionPoolException;
+
 public class PooledConnection implements Connection, AutoCloseable {
-private Connection connection;
+	private final static Logger log = LogManager.getLogger(PooledConnection.class);
+	
+	private Connection connection;
 	
 	public PooledConnection(Connection connection) {
 		this.connection = connection;
@@ -31,8 +38,12 @@ private Connection connection;
 		if(connection.isClosed()) {
 			throw new SQLException("Attempting to close closed connection");
 		}
-		if(!ConnectionPool.getInstance().connections.offer(this)) {
-			throw new SQLException("Can't return connection to the pool");
+		try {
+			if(!ConnectionPool.getInstance().connections.offer(this)) {
+				throw new SQLException("Can't return connection to the pool");
+			}
+		} catch (ConnectionPoolException e) {
+			log.error(e.getStackTrace());
 		}
 
 	}

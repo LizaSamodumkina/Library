@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import by.etc.samodumkina.bean.Order;
+import by.etc.samodumkina.controller.SessionAttributeName;
 import by.etc.samodumkina.dao.exception.DAOException;
 import by.etc.samodumkina.dao.factory.DAOFactory;
 import by.etc.samodumkina.service.Command;
@@ -13,11 +14,10 @@ import by.etc.samodumkina.specification.Specification;
 import by.etc.samodumkina.specification.impl.TakeAdminOrderStoryByUserSpecification;
 
 public class TakeUserOrderStoryCommand implements Command<Order> {
-	private final static String USER_NAME = "user";
 
 	@Override
 	public List<Order> execute(HttpServletRequest request) throws ServiceException {
-		String userName = (String) request.getSession().getAttribute(USER_NAME);
+		String userName = (String) request.getSession().getAttribute(SessionAttributeName.USER_NAME);
 		
 		Specification specification = new TakeAdminOrderStoryByUserSpecification(userName);
 		

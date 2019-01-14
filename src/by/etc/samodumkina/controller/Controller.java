@@ -29,7 +29,7 @@ public class Controller extends HttpServlet {
 		if (dispatcher != null) {
 			dispatcher.forward(request, response);
 		}else {
-			errorMessageDirectluFromResponse(response);
+			errorMessageDirectlyFromResponse(response);
 		}
 	}
 
@@ -41,6 +41,7 @@ public class Controller extends HttpServlet {
 	}
 	
 	private String mainLogic(HttpServletRequest request, HttpServletResponse response) {
+		
 		String commandName = request.getParameter(RequestParameterName.COMMAND_NAME);
 		Command command = ServiceFactory.getInstance().getCommand(commandName);
 		
@@ -55,7 +56,7 @@ public class Controller extends HttpServlet {
 		return page;
 	}
 	
-	private void errorMessageDirectluFromResponse(HttpServletResponse response) throws IOException {
+	private void errorMessageDirectlyFromResponse(HttpServletResponse response) throws IOException {
 		response.setContentType("text/html");
 		response.getWriter().println("ERROR");
 	}

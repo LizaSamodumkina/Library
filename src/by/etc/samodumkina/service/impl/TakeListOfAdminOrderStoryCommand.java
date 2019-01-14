@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import by.etc.samodumkina.bean.Order;
 import by.etc.samodumkina.controller.JSPPageName;
+import by.etc.samodumkina.controller.RequestAttributeName;
 import by.etc.samodumkina.controller.RequestParameterName;
 import by.etc.samodumkina.dao.exception.DAOException;
 import by.etc.samodumkina.dao.factory.DAOFactory;
@@ -17,7 +18,6 @@ import by.etc.samodumkina.specification.impl.TakeAdminOrderStoryByUserSpecificat
 import by.etc.samodumkina.specification.impl.TakeAdminOrderStorySpecification;
 
 public class TakeListOfAdminOrderStoryCommand implements Command<String>{
-	private final static String LIST = "list";
 
 	@Override
 	public List<String> execute(HttpServletRequest request) throws ServiceException {
@@ -35,11 +35,10 @@ public class TakeListOfAdminOrderStoryCommand implements Command<String>{
 		try {
 			List<Order> orders = DAOFactory.getInstance().takeReadOrderStory().read(specification);
 			
-			request.setAttribute(LIST, orders);
+			request.setAttribute(RequestAttributeName.LIST, orders);
 			
 			page.add(JSPPageName.ADMIN_ORDER_STORY_PAGE.getURL());
 		} catch (DAOException e) {
-			e.printStackTrace();
 			throw new ServiceException(e);
 		}
 		

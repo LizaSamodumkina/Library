@@ -9,7 +9,6 @@ public class PreOrder {
 	public PreOrder() {}
 
 	public PreOrder(User user, String likedBookId, boolean isOrderToHome) {
-		super();
 		this.user = user;
 		this.likedBookId = likedBookId;
 		this.isOrderToHome = isOrderToHome;

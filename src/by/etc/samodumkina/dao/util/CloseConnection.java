@@ -16,7 +16,9 @@ public class CloseConnection {
 	
 	public void close(Connection connection) throws DAOException {
 		try {
-			connection.close();
+			if (connection != null) {
+				connection.close();
+			}
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}

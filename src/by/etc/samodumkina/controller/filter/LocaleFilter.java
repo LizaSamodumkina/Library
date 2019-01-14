@@ -9,6 +9,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import by.etc.samodumkina.controller.RequestParameterName;
+import by.etc.samodumkina.controller.SessionAttributeName;
+
 public class LocaleFilter implements Filter {
 
     public LocaleFilter() {}
@@ -17,8 +20,8 @@ public class LocaleFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;   
-	    if (req.getParameter("sessionLocale") != null) {
-	    	req.getSession().setAttribute("local", req.getParameter("sessionLocale"));
+	    if (req.getParameter(RequestParameterName.SESSION_LOCALE) != null) {
+	    	req.getSession().setAttribute(SessionAttributeName.LOCALE, req.getParameter(RequestParameterName.SESSION_LOCALE));
 	    }
 		
 		chain.doFilter(request, response);
