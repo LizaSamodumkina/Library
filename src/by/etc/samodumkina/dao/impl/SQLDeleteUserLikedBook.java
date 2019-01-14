@@ -15,7 +15,6 @@ public class SQLDeleteUserLikedBook implements DeleteInfoDAO {
 
 	@Override
 	public void delete(Specification specification) throws DAOException{
-		System.out.println("delete");
 		Statement statement = null;
 		
 		try(Connection connection = ConnectionPool.getInstance().takeConnection()) {
