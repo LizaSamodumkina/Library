@@ -43,7 +43,7 @@
   </filter>
   <filter-mapping>
     <filter-name>CatalogPageFilter</filter-name>
-    <url-pattern>/WEB-INF/jsp/main.jsp</url-pattern>
+    <url-pattern>/jsp/main.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
   </filter-mapping>
@@ -63,8 +63,94 @@
   </filter>
   <filter-mapping>
     <filter-name>LikedBookPageFilter</filter-name>
-    <url-pattern>/WEB-INF/jsp/likedbooks.jsp</url-pattern>
+    <url-pattern>/jsp/likedbooks.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
   </filter-mapping>
+  <filter>
+    <display-name>AdminMainPageFilter</display-name>
+    <filter-name>AdminMainPageFilter</filter-name>
+    <filter-class>by.etc.samodumkina.controller.filter.AdminMainPageFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>AdminMainPageFilter</filter-name>
+    <url-pattern>/jsp/adminMainPage.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
+  <filter>
+    <display-name>AdminOrderStoryPageFilter</display-name>
+    <filter-name>AdminOrderStoryPageFilter</filter-name>
+    <filter-class>by.etc.samodumkina.controller.filter.AdminOrderStoryPageFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>AdminOrderStoryPageFilter</filter-name>
+    <url-pattern>/WEB-INF/jsp/adminOrderStory.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
+  <filter>
+    <display-name>UserOrderPageFilter</display-name>
+    <filter-name>UserOrderPageFilter</filter-name>
+    <filter-class>by.etc.samodumkina.controller.filter.UserOrderPageFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>UserOrderPageFilter</filter-name>
+    <url-pattern>/WEB-INF/jsp/orders.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
+  <filter>
+    <display-name>UserOrderStoryPageFilter</display-name>
+    <filter-name>UserOrderStoryPageFilter</filter-name>
+    <filter-class>by.etc.samodumkina.controller.filter.UserOrderStoryPageFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>UserOrderStoryPageFilter</filter-name>
+    <url-pattern>/WEB-INF/jsp/ordersstory.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
+  <filter>
+    <display-name>AddNewBookPageFilter</display-name>
+    <filter-name>AddNewBookPageFilter</filter-name>
+    <filter-class>by.etc.samodumkina.controller.filter.AddNewBookPageFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>AddNewBookPageFilter</filter-name>
+    <url-pattern>/jsp/adminAddNewBook.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
+  <filter>
+    <display-name>IndexPageFilter</display-name>
+    <filter-name>IndexPageFilter</filter-name>
+    <filter-class>by.etc.samodumkina.controller.filter.IndexPageFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>IndexPageFilter</filter-name>
+    <url-pattern>/index.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>IndexPageFilter</filter-name>
+    <url-pattern>/WebApp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
+  <filter>
+    <display-name>BlockedUserPageFilter</display-name>
+    <filter-name>BlockedUserPageFilter</filter-name>
+    <filter-class>by.etc.samodumkina.controller.filter.BlockedUserPageFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>BlockedUserPageFilter</filter-name>
+    <url-pattern>/jsp/blockedUsersPage.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
+  <listener>
+    <listener-class>by.etc.samodumkina.controller.listener.MainListener</listener-class>
+  </listener>
 </web-app>

@@ -46,95 +46,194 @@
 				</ul>
 		  </div>
 	</nav>
-
-	<c:out value="${requestScope.error_message }"/>
 	
-	<div class="container">
-	<form action = 'Controller' method = "get" id = "entry_form" class="form-horizontal">
-		<input type = 'hidden' name = 'command' value = 'SIGN_IN'>
-		
-		<div class="form-group">
-			<div class="form-row align-items-center">
-				<label for="login">
-					<fmt:message bundle="${loc}" key="local.login" var="Login" />
-					<c:out value = "${Login}"/>
-				</label>
-				<div class = "col-2">
-					<input name = 'login' type='text' id = "login" class="form-control form-control-sm" placeholder = "${Login}">
-				</div>
+	<c:choose>
+		<c:when test="${is_registration eq false}">
+			<div>
+	
+				<fmt:message bundle="${loc}" key="local.entry" var="entry" />
+				<input type = 'button' name = "b_signIn" id = "b_signIn" value="${entry}" class=" change-button-style">
+				
+				<fmt:message bundle="${loc}" key="local.registration" var="registration" />
+				<input type = 'button' name = "b_registration" id = "b_registration" value = "${registration}" class="change-button-style-second" style = "opacity: 0.5">
+			
 			</div>
 			
-			<br/>
-			
-			<div class="form-row align-items-center">
-				<label for = "password">
-					<fmt:message bundle="${loc}" key="local.password" var="Password" />
-					<c:out value = "${Password}"/>
-				</label>
-					<div class = "col-2">
-					<input name = 'password' type='password' id = "password" class="form-control form-control-sm" placeholder = "${Password}">
-				</div>
+			<div id = "message" class="alert alert-light" role="alert">
+				<c:out value="${error_message }"/>
+				<c:remove var="error_message" scope="session"/>
 			</div>
-		</div>
+			
+			<div class="container">
+			<form action = 'Controller' method = "get" id = "entry_form" class="form-horizontal" >
+				<input type = 'hidden' name = 'command' value = 'SIGN_IN'>
+				
+				<div class="form-group">
+					<div class="form-row align-items-center">
+						<label for="login">
+							<fmt:message bundle="${loc}" key="local.login" var="Login" />
+							<c:out value = "${Login}"/>
+						</label>
+						<div class = "col-2">
+							<input name = 'login' type='text' id = "login" class="form-control form-control-sm login-style" placeholder = "${Login}" >
+						</div>
+					</div>
+					
+					<br/>
+					
+					<div class="form-row align-items-center">
+						<label for = "password">
+							<fmt:message bundle="${loc}" key="local.password" var="Password" />
+							<c:out value = "${Password}"/>
+						</label>
+							<div class = "col-2">
+							<input name = 'password' type='password' id = "password" class="form-control form-control-sm password-style" placeholder = "${Password}">
+						</div>
+					</div>
+				</div>
+				
+				<br/>
+				<fmt:message bundle="${loc}" key="local.log_in_button" var="logIn" />
+				<input type = 'button' name = "signIn" id = "entry_button" value="${logIn}" class="btn button_style">
+			</form>
+			</div>
+			
+			<form action = "Controller" method = "get" id = "registration_form" class="form-horizontal" style="display:none">
+				<input type = 'hidden' name = 'command' value = 'REGISTRATION'>
+				
+				<div class="form-group">
+					<div class="form-row align-items-center">
+						<label for="login">
+							<c:out value = "${Login }"/>
+						</label>
+						<div class = "col-2">
+							<input name = 'login' type='text' class="form-control form-control-sm login-style" placeholder = "${Login}">
+						</div>
+					</div>
+					<br/>
+					
+					<div class="form-row align-items-center">
+						<label for="password">
+							<c:out value = "${Password }"/>
+						</label>
+						<div class = "col-2">
+							<input name = 'password' type='password' class="form-control form-control-sm password-style" placeholder = "${Password }">
+						</div>
+					</div>
+					
+					<br/>
+					
+					<div class="form-row align-items-center">
+						<label for="e-mail">
+							<fmt:message bundle="${loc}" key="local.email" var="email" />
+							<c:out value = "${email }"/>
+						</label>
+						<div class = "col-2">
+							<input name = 'e-mail' type="email" class="form-control form-control-sm email-style" placeholder = "E-mail">
+						</div>
+					</div>
+					
+					<br/>
+					<fmt:message bundle="${loc}" key="local.sign_up_button" var="SignUp" />
+					<input type = 'button' name = "registration" id = "registration" value = "${SignUp}" class="btn">
+				</div>
+			</form>
+		</c:when>
 		
-		<br/>
-		<fmt:message bundle="${loc}" key="local.log_in_button" var="logIn" />
-		<input type = 'button' name = "signIn" id = "entry_button" value="${logIn}" class="btn button_style">
-	</form>
-	</div>
+		<c:when test="${is_registration eq true}">
+		<div>
 	
-	<form action = "Controller" method = "get" id = "registration_form">
-		<input type = 'hidden' name = 'command' value = 'REGISTRATION'>
-		
-		<label for="login">
-			<c:out value = "${Login }"/>
-		</label>
-		<input name = 'login' type='text' class="form-control form-control-sm" placeholder = "Логин">
-		
-		<br/>
-		
-		<label>
-			<c:out value = "${Password }"/>
-		</label>
-		<input name = 'password' type='password' class="form-control form-control-sm" placeholder = "Пароль">
-		
-		<br/>
-		
-		<label>
-			<fmt:message bundle="${loc}" key="local.email" var="email" />
-			<c:out value = "${email }"/>
-		</label>
-		<input name = 'e-mail' type="email" class="form-control form-control-sm" placeholder = "E-mail">
-		
-		<br/>
-		<fmt:message bundle="${loc}" key="local.sign_up_button" var="SignUp" />
-		<input type = 'button' name = "registration" id = "registration" value = "${SignUp}" class="btn">
-	</form>
+				<fmt:message bundle="${loc}" key="local.entry" var="entry" />
+				<input type = 'button' name = "b_signIn" id = "b_signIn" value="${entry}" class=" change-button-style" style = "opacity: 0.5">
+				
+				<fmt:message bundle="${loc}" key="local.registration" var="registration" />
+				<input type = 'button' name = "b_registration" id = "b_registration" value = "${registration}" class="change-button-style-second">
+			
+			</div>
+			
+			<div id = "message" class="alert alert-light" role="alert">
+				<c:out value="${error_message }"/>
+				<c:remove var="error_message" scope="session"/>
+			</div>
+			
+			<div class="container">
+			<form action = 'Controller' method = "get" id = "entry_form" class="form-horizontal" style="display:none">
+				<input type = 'hidden' name = 'command' value = 'SIGN_IN'>
+				
+				<div class="form-group">
+					<div class="form-row align-items-center">
+						<label for="login">
+							<fmt:message bundle="${loc}" key="local.login" var="Login" />
+							<c:out value = "${Login}"/>
+						</label>
+						<div class = "col-2">
+							<input name = 'login' type='text' id = "login" class="form-control form-control-sm login-style" placeholder = "${Login}" >
+						</div>
+					</div>
+					
+					<br/>
+					
+					<div class="form-row align-items-center">
+						<label for = "password">
+							<fmt:message bundle="${loc}" key="local.password" var="Password" />
+							<c:out value = "${Password}"/>
+						</label>
+							<div class = "col-2">
+							<input name = 'password' type='password' id = "password" class="form-control form-control-sm password-style" placeholder = "${Password}">
+						</div>
+					</div>
+				</div>
+				
+				<br/>
+				<fmt:message bundle="${loc}" key="local.log_in_button" var="logIn" />
+				<input type = 'button' name = "signIn" id = "entry_button" value="${logIn}" class="btn button_style">
+			</form>
+			</div>
+			
+			<form action = "Controller" method = "get" id = "registration_form" class="form-horizontal" >
+				<input type = 'hidden' name = 'command' value = 'REGISTRATION'>
+				
+				<div class="form-group">
+					<div class="form-row align-items-center">
+						<label for="login">
+							<c:out value = "${Login }"/>
+						</label>
+						<div class = "col-2">
+							<input name = 'login' type='text' class="form-control form-control-sm login-style" placeholder = "${Login}">
+						</div>
+					</div>
+					<br/>
+					
+					<div class="form-row align-items-center">
+						<label for="password">
+							<c:out value = "${Password }"/>
+						</label>
+						<div class = "col-2">
+							<input name = 'password' type='password' class="form-control form-control-sm password-style" placeholder = "${Password }">
+						</div>
+					</div>
+					
+					<br/>
+					
+					<div class="form-row align-items-center">
+						<label for="e-mail">
+							<fmt:message bundle="${loc}" key="local.email" var="email" />
+							<c:out value = "${email }"/>
+						</label>
+						<div class = "col-2">
+							<input name = 'e-mail' type="email" class="form-control form-control-sm email-style" placeholder = "E-mail">
+						</div>
+					</div>
+					
+					<br/>
+					<fmt:message bundle="${loc}" key="local.sign_up_button" var="SignUp" />
+					<input type = 'button' name = "registration" id = "registration" value = "${SignUp}" class="btn">
+				</div>
+			</form>
+		</c:when>
+	</c:choose>
 	
-	<!--<form action = "Controller" method = "post">
-		<input type = 'hidden' name = 'command' value = 'EN'>
-		<fmt:message bundle="${loc}" key="local.en" var="EN" />
-		<input type = 'submit' name = "registration" value = "${EN }" class="btn btn-primary">
-	</form>
-	<form action = "Controller" method = "post">
-		<input type = 'hidden' name = 'command' value = 'RU'>
-		<fmt:message bundle="${loc}" key="local.ru" var="RU" />
-		<input type = 'submit' name = "registration" value = "${RU }" class="btn btn-primary">
-	</form>
 	
-	 <ul>
-		 <li>
-		 	<a href="?sessionLocale=en&current_page=MAIN_PAGE">
-		 	<fmt:message bundle="${loc}" key="local.en" var="EN" />
-		 	<c:out value = "${EN}"/>
-		 	</a>
-		 </li>
-		 <li>
-		 	<a href="?sessionLocale=ru&current_page=MAIN_PAGE"><fmt:message bundle="${loc}" key="local.ru" var="RU" />
-		 	<c:out value = "${RU}"/>
-		 	</a>
-		 </li>
-	 </ul> -->
 	<script type="text/javascript" src="js/md5-min.js"></script>
 	<script src = "js/index.js"></script>
 </body>

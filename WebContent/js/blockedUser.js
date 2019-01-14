@@ -1,27 +1,30 @@
-$(document).ready(function() {
+$(document).ready(function(){
 	$(document).on("click","button",function(){
 		$.ajax({
 			url: 'http://localhost:8080/WebApp/Controller',
 			method: 'post',
-			data: bookIdForRequest(this.id),//данные о пользователе
+			data: userInfo(this.id),
 			success: function (response) {
 				console.log("send");
 				document.write(response);
 				document.close();
 				document.open();
 				//window.location.reload();
-				//$("#message").css("display", "inline");
 			},
 			error: function (result) {
 				console.log("error");
+				$("#message").css("display", "inline");
+				//window.location.reload(); //перезагрузка
 			}
 		});
 	});
 	
-	function bookIdForRequest(bookId){
+	function userInfo(login){
 		var config = {};
-		config["command"] = "ADD_AS_LIKED_BOOK";
-		config["bookId"] = bookId;
+		
+		config["command"] = "DELETE_BLOKED_USER";
+		config["login"] = login;
+		
 		return config;
 	}
 });

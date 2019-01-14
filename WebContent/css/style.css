@@ -1,4 +1,87 @@
-input[type="button"]{
+/*input[type="button"]{
+	background-color:#563d7c;
+	color: #fff;
+	font-size: 14px;
+	border-radius: 30px;
+	padding: 10px 25px;
+	border: none;
+}*/
+
+.change-button-style{
+	background-color:#563d7c;
+	color: #fff;
+	font-size: 14px;
+	border-radius: 0px;
+	margin:0;
+	width:49%;
+	border-radius: 0px;
+	text-align:centre;
+	padding: 10px 25px;
+	border: none;
+}
+
+.change-button-style-second{
+	background-color:#563d7c;
+	color: #fff;
+	font-size: 14px;
+	border-radius: 0px;
+	margin:0;
+	width:50%;
+	border-radius: 0px;
+	text-align:centre;
+	padding: 10px 25px;
+	border: none;
+	float: right;
+}
+
+/*button[type="button"]{
+	background-color:#563d7c;
+	color: #fff;
+	font-size: 14px;
+ 	border-radius: 30px;
+ 	padding: 10px 25px;
+ 	border: none;
+}*/
+
+.login-style{
+	margin-left: 210px;
+}
+
+label{
+	margin-left: 300px;
+}
+
+.password-style{
+	margin-left: 200px;
+}
+
+.email-style{
+	margin-left: 210px;
+}
+
+#entry_button{
+	background-color:#563d7c;
+	color: #fff;
+	font-size: 14px;
+	border-radius: 30px;
+	padding: 10px 25px;
+	border: none;
+	width: 200px;
+	margin-left: 430px;
+}
+
+#registration{
+	background-color:#563d7c;
+	color: #fff;
+	font-size: 14px;
+	border-radius: 30px;
+	padding: 10px 25px;
+	border: none;
+	width: 200px;
+	margin-left: 430px;
+}
+
+.add-as-liked-button{
 	background-color:#563d7c;
 	color: #fff;
 	font-size: 14px;
@@ -7,17 +90,54 @@ input[type="button"]{
 	border: none;
 }
 
-button[type="button"]{
+.button_at_liked_page{
 	background-color:#563d7c;
 	color: #fff;
 	font-size: 14px;
- 	border-radius: 30px;
- 	padding: 10px 25px;
- 	border: none;
+	border-radius: 10px;
+	padding: 10px 25px;
+	border: none;
+	width: 200px;
+	margin-top: 2px;
+	margin-bottom: 2px;
 }
 
-input{
-	margin-left: 200px;
+.search_div{
+	margin-top: 5px;
+	margin-bottom: 5px;
+	text-align: center;
+	margin-left: 440px;
+}
+
+.search_button{
+	background-color:#563d7c;
+	color: #fff;
+	font-size: 14px;
+	border-radius: 10px;
+	padding: 10px 25px;
+	border: none;
+	width: 200px;
+	margin-right: 5px;
+}
+
+.reset_button{
+	background-color:#563d7c;
+	color: #fff;
+	font-size: 14px;
+	border-radius: 10px;
+	padding: 10px 25px;
+	border: none;
+	width: 200px;
+}
+
+.add_button{
+	background-color:#563d7c;
+	color: #fff;
+	font-size: 14px;
+	border-radius: 10px;
+	padding: 10px 25px;
+	border: none;
+	width: 150px;
 }
 
 .form-horizontal{
@@ -53,4 +173,36 @@ input{
 	background: #aba5bc;
 	box-shadow: none;
 	outline: 0 none;
+}
+
+.book_form_name{
+	left: 100px;
+}
+
+.book_form_author{
+	left: 115px;
+}
+
+.book_form_annotation{
+	left: 94px;
+}
+
+.book_form_publisher{
+	left: 73px;
+}
+
+.book_form_year{
+	left: 85px;
+}
+
+.book_form_page_num{
+	left: 24px;
+}
+
+.book_form_copy_num{
+	left: 40px;
+}
+
+.add_book_button{
+	margin-left: 400px;
 }

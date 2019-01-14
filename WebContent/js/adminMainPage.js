@@ -13,7 +13,7 @@ $(document).ready(function(){
 	
 	$("#userSearch").click(function(){		
 		var url = "http://localhost:8080/WebApp/Controller?command=";
-		if (($("#readingroom").css("opacity")) == 0.5){
+		if (($("#readingroom").css("opacity")) == 1){
 			url += "NEED_SEND_OUT_BOOKS_TO_READING_ROOM";
 		}else{
 			url += "NEED_SEND_OUT_BOOKS_TO_HOME";
@@ -25,7 +25,7 @@ $(document).ready(function(){
 	
 	$("#reset").click(function(){		
 		var url = "http://localhost:8080/WebApp/Controller?command=";
-		if (($("#readingroom").css("opacity")) == 0.5){
+		if (($("#readingroom").css("opacity")) == 1){
 			url += "NEED_SEND_OUT_BOOKS_TO_READING_ROOM";
 		}else{
 			url += "NEED_SEND_OUT_BOOKS_TO_HOME";
@@ -57,7 +57,7 @@ $(document).ready(function(){
 		var config = {};
 		
 		config["command"] = "CREATE_ORDER";
-		if (($("#readingroom").css("opacity")) == 0.5){
+		if (($("#readingroom").css("opacity")) == 1){
 			config["home"] = "false";
 		}else{
 			config["home"] = "true";

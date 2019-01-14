@@ -1,12 +1,27 @@
 $(document).ready(function() {
+	$("#b_signIn").click(function(){
+		$("#entry_form").css("display", "inline");
+		$("#registration_form").css("display", "none");
+		$("#b_registration").css("opacity", "0.5");
+		$("#b_signIn").css("opacity", "1");
+	});
+	
+	$("#b_registration").click(function(){
+		$("#registration_form").css("display", "inline");
+		$("#entry_form").css("display", "none");
+		$("#b_signIn").css("opacity", "0.5");
+		$("#b_registration").css("opacity", "1");
+	});
+	
 	$("#entry_button").click(function () {
 		/*$.ajax({
 			url: 'http://localhost:8080/WebApp/Controller',
-			method: 'get',
+			method: 'post',
 			data: getFormDataForEntry(),//данные о пользователе
 			success: function (response) {
 				console.log("send");
 				document.write(response);
+				//document.close();
 			},
 			error: function (result) {
 				console.log("error");
@@ -27,6 +42,7 @@ $(document).ready(function() {
 
 	function getFormDataForEntry(){ //формируем данные для request
 		var config = {}; //это объект
+		config["command"] = "SIGN_IN";
 		//map по очереди рассматривает элементы массива, сформированные из данных формы (Логин + пароль)
 		$("#entry_form").serializeArray().map(function(item) { //из формы формируем данные в запрос в виде "имя поля" = "значение"
 			if (item.name === "password"){
@@ -38,9 +54,9 @@ $(document).ready(function() {
 	}
 
 	$("#registration").click(function () {
-		$.ajax({
+		/*$.ajax({
 			url: 'http://localhost:8080/WebApp/Controller',
-			method: 'get',
+			method: 'post',
 			data: getFormDataForRegistration(),//данные о пользователе
 			success: function (response) {
 				console.log("send");
@@ -49,7 +65,22 @@ $(document).ready(function() {
 			error: function (result) {
 				console.log("error");
 			}
+		});*/
+		
+		var url = "http://localhost:8080/WebApp/Controller?command=REGISTRATION&";
+		$("#registration_form").serializeArray().map(function(item) { //из формы формируем данные в запрос в виде "имя поля" = "значение"
+			if (item.name === "login"){
+				url += "login=" + item.value + "&";
+			}
+			if (item.name === "password"){
+				item.value = hex_md5(item.value);
+				url += "password=" + item.value + "&";
+			}
+			if (item.name === "e-mail"){
+				url += "e-mail=" + item.value + "&";
+			}
 		});
+		document.location.href = url;
 	});
 
 	function getFormDataForRegistration(){ //формируем данные для request
