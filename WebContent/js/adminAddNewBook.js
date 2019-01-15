@@ -2,7 +2,6 @@ $("#message").css("display", "none");
 
 $(document).ready(function(){
 	$("#add").click(function(){
-		//alert("yes");
 		$.ajax({
 			url: 'http://localhost:8080/WebApp/Controller',
 			method: 'post',
