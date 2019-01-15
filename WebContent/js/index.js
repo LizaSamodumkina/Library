@@ -14,19 +14,7 @@ $(document).ready(function() {
 	});
 	
 	$("#entry_button").click(function () {
-		/*$.ajax({
-			url: 'http://localhost:8080/WebApp/Controller',
-			method: 'post',
-			data: getFormDataForEntry(),//данные о пользователе
-			success: function (response) {
-				console.log("send");
-				document.write(response);
-				//document.close();
-			},
-			error: function (result) {
-				console.log("error");
-			}
-		});*/
+		
 		var url = "http://localhost:8080/WebApp/Controller?command=SIGN_IN&";
 		$("#entry_form").serializeArray().map(function(item) { //из формы формируем данные в запрос в виде "имя поля" = "значение"
 			if (item.name === "login"){
@@ -54,19 +42,7 @@ $(document).ready(function() {
 	}
 
 	$("#registration").click(function () {
-		/*$.ajax({
-			url: 'http://localhost:8080/WebApp/Controller',
-			method: 'post',
-			data: getFormDataForRegistration(),//данные о пользователе
-			success: function (response) {
-				console.log("send");
-				document.write(response);
-			},
-			error: function (result) {
-				console.log("error");
-			}
-		});*/
-		
+				
 		var url = "http://localhost:8080/WebApp/Controller?command=REGISTRATION&";
 		$("#registration_form").serializeArray().map(function(item) { //из формы формируем данные в запрос в виде "имя поля" = "значение"
 			if (item.name === "login"){
