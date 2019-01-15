@@ -11,6 +11,13 @@ import by.etc.samodumkina.dao.pool.SampleTransactionManager;
 import by.etc.samodumkina.dao.pool.exception.ConnectionPoolException;
 import by.etc.samodumkina.dao.util.CloseStatement;
 
+/**
+ * 
+ * DAO class that helps create new order from queued orders (preorders).
+ * Depends of second element in list put order as order to home or order to reading room
+ *
+ */
+
 public class SQLCreateOrder implements AddInfoDAO<String> {
 	private final static int HOME_INDEX = 1;
 	private final static int ID_INDEX = 0;

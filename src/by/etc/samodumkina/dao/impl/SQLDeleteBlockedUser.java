@@ -11,6 +11,12 @@ import by.etc.samodumkina.dao.pool.exception.ConnectionPoolException;
 import by.etc.samodumkina.dao.util.CloseStatement;
 import by.etc.samodumkina.specification.Specification;
 
+/**
+ * 
+ * DAO class that delete user from 'blockedusers' table in database by mysql specification
+ *
+ */
+
 public class SQLDeleteBlockedUser implements DeleteInfoDAO {
 
 	@Override

@@ -16,6 +16,12 @@ import by.etc.samodumkina.dao.util.CloseResultSet;
 import by.etc.samodumkina.dao.util.CloseStatement;
 import by.etc.samodumkina.specification.Specification;
 
+/**
+ * 
+ * DAO class to read already blocked users from 'blokedusers' table in database by mysql specification.
+ *
+ */
+
 public class SQLReadBlockedUsers implements TakeInfoDAO<User> {
 	
 	private final static String LOGIN = "login";

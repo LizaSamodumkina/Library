@@ -16,6 +16,14 @@ import by.etc.samodumkina.dao.util.CloseResultSet;
 import by.etc.samodumkina.dao.util.CloseStatement;
 import by.etc.samodumkina.specification.Specification;
 
+/**
+ * 
+ * DAO class to read user liked books from 'userlikedbooks' table in database by mysql specification/
+ * 
+ * @return list of liked books
+ *
+ */
+
 public class SQLReadUserLikedBook implements TakeInfoDAO<Book> {
 
 	private final static String BOOK_ID = "id";

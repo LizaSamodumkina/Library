@@ -17,6 +17,12 @@ import by.etc.samodumkina.dao.pool.exception.ConnectionPoolException;
 import by.etc.samodumkina.dao.util.CloseResultSet;
 import by.etc.samodumkina.dao.util.CloseStatement;
 
+/**
+ * 
+ * DAO class to work with users in system. Include sign in, registration function and function to check is user has administrator right.
+ *
+ */
+
 public class SQLUserDAO implements UserDAO{
 	private final static String SIGN_IN = "select * from users where login = ? and password = ?";
 	private final static String REGISTRATION  = "insert into users (login, password, e_mail) values(?, ?, ?)";

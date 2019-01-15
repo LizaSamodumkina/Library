@@ -15,6 +15,14 @@ import by.etc.samodumkina.dao.util.CloseResultSet;
 import by.etc.samodumkina.dao.util.CloseStatement;
 import by.etc.samodumkina.specification.Specification;
 
+/**
+ * 
+ * DAO class to read users' e-mail to notify them, that they order time ends.
+ * 
+ * @return users' emails
+ *
+ */
+
 public class SQLReadUserToNotificate implements TakeInfoDAO<String> {
 	private final static String E_MAIL = "users.e_mail";
 

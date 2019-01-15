@@ -1,6 +1,7 @@
 package by.etc.samodumkina.dao.impl;
 
 import java.sql.Connection;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,6 +16,12 @@ import by.etc.samodumkina.dao.pool.exception.ConnectionPoolException;
 import by.etc.samodumkina.dao.util.CloseResultSet;
 import by.etc.samodumkina.dao.util.CloseStatement;
 import by.etc.samodumkina.specification.Specification;
+
+/**
+ * 
+ * DAO class for reading all books from 'books' table in database by mysql specification
+ *
+ */
 
 public class SQLReadBook implements TakeInfoDAO<Book>{	
 	private final static String BOOK_NAME = "bookName";

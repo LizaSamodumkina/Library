@@ -14,6 +14,15 @@ import by.etc.samodumkina.dao.pool.exception.ConnectionPoolException;
 import by.etc.samodumkina.dao.util.CloseResultSet;
 import by.etc.samodumkina.dao.util.CloseStatement;
 
+/**
+ * 
+ * DAO class that with transaction check is user has opportunity to order book 
+ * and if yes, put order information to order queue in database and return true.
+ * If user doesn't have such opportunity order will not be queued and function add() returns false
+ *
+ * @return true, if order was queued. false, if it's not.
+ */
+
 public class SQLAddBookToQueue implements AddInfoDAO<PreOrder>{
 	private final static String SELECT_USER_ORDERS_NUM = "select count(*) as number from bookOrderStory where userId = (select user_id from users where login = ?) and isReplace = 0";
 	private final static String SELECT_USER_OLD_NOT_REPLACED_ORDERS = "select count(*) as number from bookorderstory where (adddate(date, 30) < CURDATE()) and isReplace = 0 and userId = (select user_id from users where login = ?)";

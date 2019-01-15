@@ -16,6 +16,15 @@ import by.etc.samodumkina.dao.util.CloseResultSet;
 import by.etc.samodumkina.dao.util.CloseStatement;
 import by.etc.samodumkina.specification.Specification;
 
+/**
+ * 
+ * DAO class read queued books (preorders) from 'needsendoutbooks' table in database.
+ * Depends of mysql specification will read preorders to home or to reading room.
+ * 
+ * @return list of queued books (preorders)
+ *
+ */
+
 public class SQLReadNeedSendOutBook implements TakeInfoDAO<NeedSendOutBook>{
 	
 	private final static String LOGIN = "login";

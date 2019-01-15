@@ -11,6 +11,12 @@ import by.etc.samodumkina.dao.pool.exception.ConnectionPoolException;
 import by.etc.samodumkina.dao.util.CloseStatement;
 import by.etc.samodumkina.specification.Specification;
 
+/**
+ * 
+ * DAO class to delete book from list of user liked books (delete from 'userlikedbooks' table in database by mysql specification)
+ *
+ */
+
 public class SQLDeleteUserLikedBook implements DeleteInfoDAO {
 
 	@Override

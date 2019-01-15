@@ -11,6 +11,12 @@ import by.etc.samodumkina.dao.pool.ConnectionPool;
 import by.etc.samodumkina.dao.pool.exception.ConnectionPoolException;
 import by.etc.samodumkina.dao.util.CloseStatement;
 
+/**
+ * 
+ * DAO class that give opportunity to put new book into system (with information of copy number), or delete already exist book.
+ *
+ */
+
 public class SQLBookDAO implements BookDAO{
 	
 	private final static String INSERT_NEW_BOOK = "insert into books (bookName, bookAuthors, annotation, description, bookNumber, availableBookNumber) values (?, ?, ?, ?, ?, ?)";

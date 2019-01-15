@@ -11,6 +11,12 @@ import by.etc.samodumkina.dao.pool.ConnectionPool;
 import by.etc.samodumkina.dao.pool.exception.ConnectionPoolException;
 import by.etc.samodumkina.dao.util.CloseStatement;
 
+/**
+ * 
+ * DAO class that put user liked book from book list to table 'userlikedbooks' in database
+ *
+ */
+
 public class SQLAddUserLikedBook implements AddInfoDAO<String>{
 	private final static String INSERT = "insert into userlikedbooks (userIdLB, bookIdLB)  values ((select user_id from users where login = ?), ?)";
 	private final static int FIRST = 1;

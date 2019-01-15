@@ -16,6 +16,15 @@ import by.etc.samodumkina.dao.util.CloseResultSet;
 import by.etc.samodumkina.dao.util.CloseStatement;
 import by.etc.samodumkina.specification.Specification;
 
+/**
+ * 
+ * DAO class to read not closed orders from database.
+ * Depends of mysql specification will read all orders of all users or all orders from one concrete user
+ * 
+ * @return list of orders
+ *
+ */
+
 public class SQLReadOrder implements TakeInfoDAO<Order>{
 	
 	private final static String ID = "orderId";
