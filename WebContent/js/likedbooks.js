@@ -32,28 +32,4 @@ $(document).ready(function() {
 		config["likedBookId"] = likedId;
 		return config;
 	}
-	
-	$("#signOut").click(function(){
-		$.ajax({
-			url: 'http://localhost:8080/WebApp/Controller',
-			method: 'post',
-			data: signOutData(),
-			success: function (response) {
-				console.log(response);
-				document.write(response);
-				//window.location.reload();
-			},
-			error: function (result) {
-				//window.location.reload();
-			}
-		});
-	});
-	
-	function signOutData(){
-		var config = {};
-		
-		config["command"] = "SIGN_OUT";
-		
-		return config;
-	}
 });
