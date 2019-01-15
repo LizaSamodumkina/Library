@@ -9,8 +9,6 @@ $(document).ready(function() {
 				document.write(response);
 				document.close();
 				document.open();
-				//window.location.reload();
-				//$("#message").css("display", "inline");
 			},
 			error: function (result) {
 				console.log("error");
