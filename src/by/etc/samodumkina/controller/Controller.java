@@ -20,6 +20,10 @@ public class Controller extends HttpServlet {
 	private final static int FIRST = 0;
 	
 	private final static Logger log = LogManager.getLogger(Controller.class);
+	
+	{
+		log.debug("test");
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

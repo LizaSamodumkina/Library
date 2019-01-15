@@ -13,6 +13,7 @@ import by.etc.samodumkina.dao.UserDAO;
 import by.etc.samodumkina.dao.impl.SQLAddBookToQueue;
 import by.etc.samodumkina.dao.impl.SQLAddUserLikedBook;
 import by.etc.samodumkina.dao.impl.SQLBookDAO;
+import by.etc.samodumkina.dao.impl.SQLCloseOrder;
 import by.etc.samodumkina.dao.impl.SQLCreateOrder;
 import by.etc.samodumkina.dao.impl.SQLDeleteBlockedUser;
 import by.etc.samodumkina.dao.impl.SQLDeleteUserLikedBook;
@@ -42,6 +43,7 @@ public class DAOFactory {
 	private final TakeInfoDAO<User> sqlReadBlockedUsers = new SQLReadBlockedUsers();
 	private final DeleteInfoDAO sqlDeleteBlokedUser = new SQLDeleteBlockedUser();
 	private final TakeInfoDAO<String> sqlReadUserToNotificate = new SQLReadUserToNotificate();
+	private final AddInfoDAO<String> sqlCloseOrder = new SQLCloseOrder();
 	
 	private DAOFactory() {}
 	
@@ -103,5 +105,9 @@ public class DAOFactory {
 	
 	public TakeInfoDAO<String> takeReadUserToNotificate(){
 		return sqlReadUserToNotificate;
+	}
+	
+	public AddInfoDAO<String> takeCloseOrder(){
+		return sqlCloseOrder;
 	}
 }

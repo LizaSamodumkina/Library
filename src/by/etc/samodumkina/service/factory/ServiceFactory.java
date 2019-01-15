@@ -9,6 +9,7 @@ import by.etc.samodumkina.service.impl.AddNewBookCommand;
 import by.etc.samodumkina.service.impl.AddUserLikedBookCommand;
 import by.etc.samodumkina.service.impl.ChangeToENLocale;
 import by.etc.samodumkina.service.impl.ChangeToRULocale;
+import by.etc.samodumkina.service.impl.CloseOrderByAdminCommand;
 import by.etc.samodumkina.service.impl.CreateOrderByAdminCommand;
 import by.etc.samodumkina.service.impl.DeleteBlockedUserCommand;
 import by.etc.samodumkina.service.impl.DeleteLikedBookCommand;
@@ -70,6 +71,7 @@ public class ServiceFactory {
 		commands.put(CommandName.GET_BLOCKED_USERS_PAGE, new GetUserBlockedPageCommand());
 		commands.put(CommandName.BLOKED_USERS, new TakeBlockedUserCommand());
 		commands.put(CommandName.DELETE_BLOKED_USER, new DeleteBlockedUserCommand());
+		commands.put(CommandName.CLOSE_ORDER, new CloseOrderByAdminCommand());
 	}
 	
 	public static ServiceFactory getInstance() {

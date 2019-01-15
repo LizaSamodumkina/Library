@@ -21,4 +21,5 @@ public class RequestParameterName {
 	public final static String COPY_NUM = "copyNum";
 	public final static String LIKED_BOOK_ID = "likedBookId";
 	public final static String SESSION_LOCALE = "sessionLocale";
+	public final static String ORDER_ID = "orderId";
 }

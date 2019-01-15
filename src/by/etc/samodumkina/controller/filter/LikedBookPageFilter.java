@@ -17,13 +17,13 @@ import org.apache.logging.log4j.Logger;
 
 import by.etc.samodumkina.bean.Book;
 import by.etc.samodumkina.controller.JSPPageName;
+import by.etc.samodumkina.controller.RequestAttributeName;
 import by.etc.samodumkina.controller.SessionAttributeName;
 import by.etc.samodumkina.service.CommandName;
 import by.etc.samodumkina.service.exception.ServiceException;
 import by.etc.samodumkina.service.factory.ServiceFactory;
 
 public class LikedBookPageFilter implements Filter {
-	private final static String ATTRIBUTE_NAME = "list";
 	
 	private final static Logger log = LogManager.getLogger(LikedBookPageFilter.class);
 
@@ -40,7 +40,7 @@ public class LikedBookPageFilter implements Filter {
 			try {
 				List<Book> books = ServiceFactory.getInstance().getCommand(CommandName.GET_USER_LIKED_BOOKS.name()).execute((HttpServletRequest)request);
 				
-				request.setAttribute(ATTRIBUTE_NAME, books);
+				request.setAttribute(RequestAttributeName.LIST, books);
 			} catch (ServiceException e) {
 				log.error(e.getStackTrace());
 			}
