@@ -134,7 +134,6 @@ public class SQLAddBookToQueue implements AddInfoDAO<PreOrder>{
 		
 		boolean answer = false;
 		while(resultSet.next()) {
-			System.out.println(resultSet.getInt(AVAILABLE_BOOK_NUMBER));
 			if (resultSet.getInt(AVAILABLE_BOOK_NUMBER) > SMALLEST_NUMBER_FOR_AVAILABLE_BOOK) {
 				answer = true;
 			}
