@@ -9,12 +9,10 @@ $(document).ready(function(){
 				document.write(response);
 				document.close();
 				document.open();
-				//window.location.reload();
 			},
 			error: function (result) {
 				console.log("error");
 				$("#message").css("display", "inline");
-				//window.location.reload(); //перезагрузка
 			}
 		});
 	});
