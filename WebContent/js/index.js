@@ -63,7 +63,7 @@ $(document).ready(function() {
 		var config = {}; //это объект
 		//map по очереди рассматривает элементы массива, сформированные из данных формы (Логин + пароль)
 		$("#registration_form").serializeArray().map(function(item) { //из формы формируем данные в запрос в виде "имя поля" = "значение"
-			console.log(item.value);
+			
 			if (item.name === "password"){
 				item.value = hex_md5(item.value);
 			}
